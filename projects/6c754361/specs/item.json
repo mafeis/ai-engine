@@ -1,0 +1,148 @@
+{
+  "items": [
+    {
+      "id": "wpn_001",
+      "name": "板斧 (旋风斧)",
+      "category": "weapon",
+      "appearance": "一对厚重的短柄双斧。斧刃呈现明亮的银灰色，边缘带有锯齿状的像素缺口，体现出战斗的痕迹。木质手柄缠绕着粗糙的深褐色麻绳。像素风格下，斧面中心有一个小小的红色圆点代表装饰。",
+      "rarity": "rare",
+      "effects": [
+        {
+          "type": "speed",
+          "value": 10
+        },
+        {
+          "type": "debuff",
+          "value": "撕裂"
+        }
+      ],
+      "price": 30000,
+      "drop_rate": 0.05
+    },
+    {
+      "id": "wpn_002",
+      "name": "丈八蛇矛",
+      "category": "weapon",
+      "appearance": "极长的长矛，矛头呈波浪状扭曲，形似游蛇。矛尖闪烁着幽蓝色的寒光。在矛头与长杆交接处，有一簇鲜艳的像素红缨，在移动时会有动态的飘动感。",
+      "rarity": "epic",
+      "effects": [
+        {
+          "type": "range",
+          "value": 2
+        },
+        {
+          "type": "crit",
+          "value": 15
+        }
+      ],
+      "price": 500000,
+      "drop_rate": 0.01
+    },
+    {
+      "id": "wpn_003",
+      "name": "水磨禅杖",
+      "category": "weapon",
+      "appearance": "厚重的黄金色金属长杖。顶端是一个巨大的月牙形铲头，另一端是圆形的重锤。整体散发出神圣的金色微光。像素颗粒清晰，呈现出沉重的金属质感，挥动时带有金色的粒子拖尾。",
+      "rarity": "legendary",
+      "effects": [
+        {
+          "type": "damage",
+          "value": 100
+        },
+        {
+          "type": "stun_chance",
+          "value": 30
+        }
+      ],
+      "price": 800000,
+      "drop_rate": 0.005
+    },
+    {
+      "id": "arm_001",
+      "name": "行者头箍",
+      "category": "armor",
+      "appearance": "一个简单的金色金属圆环。在像素表现上，它是一个亮黄色的细圈，中间点缀着一个深色的像素点作为额前的配饰。设计简约，贴合角色头部轮廓。",
+      "rarity": "common",
+      "effects": [
+        {
+          "type": "hit",
+          "value": 5
+        }
+      ],
+      "price": 2000,
+      "drop_rate": 0.15
+    },
+    {
+      "id": "arm_002",
+      "name": "虎皮披风",
+      "category": "armor",
+      "appearance": "巨大的虎皮缝制而成的披风。背景色为橙黄色，上面布满了不规则的黑色像素条纹。披风边缘呈现锯齿状，仿佛是手工裁剪。角色行走时，披风会有夸张的摆动动画。",
+      "rarity": "rare",
+      "effects": [
+        {
+          "type": "beast_damage",
+          "value": 15
+        },
+        {
+          "type": "intimidate",
+          "value": 1
+        }
+      ],
+      "price": 25000,
+      "drop_rate": 0.05
+    },
+    {
+      "id": "arm_003",
+      "name": "麒麟黄金甲",
+      "category": "armor",
+      "appearance": "极其华丽的全身甲。由亮黄色和深橙色的像素块组成，模拟出鳞片的层次感。护肩处有两个突出的麒麟头形状。在光照下，甲胄表面会有白色像素点闪烁，表现金属反光。",
+      "rarity": "legendary",
+      "effects": [
+        {
+          "type": "phys_immune",
+          "value": 20
+        },
+        {
+          "type": "reflect",
+          "value": 10
+        }
+      ],
+      "price": 1000000,
+      "drop_rate": 0.005
+    },
+    {
+      "id": "con_001",
+      "name": "景阳冈烈酒",
+      "category": "consumable",
+      "appearance": "一个圆润的褐色陶罐，罐口塞着红色的布塞。罐身上贴着一个白色的像素方块，中间是一个简化的红色“酒”字。周围环绕着几颗透明的像素气泡，暗示酒香浓郁。",
+      "rarity": "rare",
+      "effects": [
+        {
+          "type": "buff_str",
+          "value": 50
+        },
+        {
+          "type": "debuff_drunk",
+          "value": 1
+        }
+      ],
+      "price": 400,
+      "drop_rate": 0.05
+    },
+    {
+      "id": "con_002",
+      "name": "秘制熟牛肉",
+      "category": "consumable",
+      "appearance": "放在荷叶上的几片厚实的深褐色肉块。肉质纹理用深浅交替的棕色表现。荷叶是翠绿色的，边缘微卷。看起来油光锃亮，诱人食欲。",
+      "rarity": "common",
+      "effects": [
+        {
+          "type": "heal",
+          "value": 30
+        }
+      ],
+      "price": 150,
+      "drop_rate": 0.4
+    }
+  ]
+}

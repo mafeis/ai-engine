@@ -1,0 +1,12 @@
+{
+  "variant_id": "protagonist_109th_star_v4_d03c",
+  "file_path": "./projects\\6c754361\\assets\\characters\\protagonist_109th_star\\variants\\protagonist_109th_star_v4_d03c.png",
+  "script_path": "./projects\\6c754361\\scripts\\generators\\protagonist_109th_star_v4_d03c.py",
+  "created_at": "2026-01-27T22:02:50.305920",
+  "params": {
+    "size": 64
+  },
+  "seed": 4,
+  "selected": false,
+  "exists": false
+}

@@ -1,0 +1,206 @@
+{
+  "game_metadata": {
+    "title": "《水浒世界》 (Water Margin World)",
+    "genre": "ARPG (动作角色扮演游戏)",
+    "themes": [
+      "兄弟羁绊",
+      "梁山建设",
+      "北宋历史",
+      "替天行道"
+    ],
+    "core_experience": "强调即时战斗的打击感与模拟经营山寨的策略性结合。"
+  },
+  "core_gameplay_loop": [
+    {
+      "step": 1,
+      "name": "探索与聚义",
+      "description": "玩家在北宋版图上旅行，触发剧情任务，通过完成特定历史事件（如智取生辰纲）招募108将成员。"
+    },
+    {
+      "step": 2,
+      "name": "战斗与掠夺",
+      "description": "带领英雄参与即时战斗、攻城战及副本，获取经验、金钱、装备及建设资源。"
+    },
+    {
+      "step": 3,
+      "name": "梁山建设",
+      "description": "消耗资源升级聚义厅、演武场、铁匠铺等设施，提升全体英雄的被动属性。"
+    },
+    {
+      "step": 4,
+      "name": "角色养成",
+      "description": "分配资源提升英雄等级，解锁天罡/地煞星魂技能，挑战更高难度的官军势力。"
+    }
+  ],
+  "control_schemes": {
+    "pc_platform": {
+      "movement": "WASD",
+      "light_attack": "鼠标左键 (Combo)",
+      "heavy_attack": "鼠标右键 (破防)",
+      "character_switch": "数字键 1-4",
+      "active_skills": "Q / E / R",
+      "dodge": "Space (闪避/翻滚)",
+      "interaction": "F (互动/处决)",
+      "tactical_wheel": "Tab (道具/指令)"
+    },
+    "mobile_platform": {
+      "movement": "左侧虚拟摇杆",
+      "attack": "右侧大按钮 (自动连招)",
+      "skills": "周围小按钮 (带冷却显示)",
+      "character_switch": "点击英雄头像",
+      "camera_control": "右侧屏幕滑动"
+    }
+  },
+  "combat_system": {
+    "squad_mechanics": {
+      "team_size": 3,
+      "control_type": "实时控制1人，其余2人由AI控制"
+    },
+    "special_mechanics": [
+      {
+        "name": "星魂连击 (Star-Soul Combo)",
+        "trigger": "积攒“气劲”满额",
+        "effect": "释放合体技",
+        "example": "鲁智深 + 武松 = “力拔山河”大范围控制"
+      },
+      {
+        "name": "格挡与反击 (Parry)",
+        "trigger": "瞬间格挡",
+        "effect": "触发“崩劲”，使敌人进入长时间僵直"
+      },
+      {
+        "name": "破绽系统",
+        "mechanic": "架势条 (Posture Bar)",
+        "effect": "清零后可执行高伤害处决动画"
+      }
+    ],
+    "skill_types": [
+      {
+        "category": "天罡技",
+        "focus": "高伤害、华丽特效",
+        "example": "公孙胜的风雷术"
+      },
+      {
+        "category": "地煞技",
+        "focus": "功能性、控制、辅助",
+        "example": "时迁的隐身偷袭"
+      }
+    ]
+  },
+  "progression_system": {
+    "leveling": {
+      "account_level": "聚义等级，决定剧情进度与设施上限",
+      "hero_level": "提升英雄基础战斗属性"
+    },
+    "unlock_mechanics": {
+      "recruitment_methods": [
+        "寻访",
+        "剧情强制加入",
+        "挑战加入"
+      ],
+      "talent_tree": "天书系统（收集残卷解锁高阶天赋）"
+    },
+    "base_prestige": {
+      "system_name": "梁山星级",
+      "source": "完成“替天行道”任务",
+      "rewards": [
+        "高级武器锻造",
+        "精良马匹解锁"
+      ]
+    }
+  },
+  "difficulty_curve": [
+    {
+      "stage": "序章",
+      "level_range": "1-10",
+      "enemy_types": "流氓地痞",
+      "focus": "教学阶段，熟悉格挡与技能"
+    },
+    {
+      "stage": "起义初期",
+      "level_range": "11-30",
+      "enemy_types": "官府正规军 (长枪兵、弓箭手)",
+      "focus": "小队配合与走位"
+    },
+    {
+      "stage": "征战中期",
+      "level_range": "31-60",
+      "enemy_types": "机制型BOSS (高廉、童贯)",
+      "focus": "多阶段转场、AOE规避、属性针对配置"
+    },
+    {
+      "stage": "后期/终局",
+      "level_range": "61+",
+      "enemy_types": "大规模攻城战、极高数值敌军",
+      "focus": "多小队动态支援、策略巅峰、低容错率"
+    }
+  ],
+  "numerical_balance": {
+    "attributes": {
+      "STR": "物理伤害，负重",
+      "AGI": "暴击率，攻击速度，闪避距离",
+      "CON": "生命值，韧性",
+      "INT": "技能冷却缩减，法术伤害"
+    },
+    "stat_scaling_reference": [
+      {
+        "phase": "初期",
+        "hero_hp": [
+          500,
+          800
+        ],
+        "normal_atk": [
+          50,
+          100
+        ],
+        "enemy_hp": [
+          200,
+          300
+        ],
+        "balance_note": "2-3刀解决一个小怪"
+      },
+      {
+        "phase": "中期",
+        "hero_hp": [
+          3000,
+          5000
+        ],
+        "normal_atk": [
+          400,
+          700
+        ],
+        "enemy_hp": [
+          1500,
+          2500
+        ],
+        "balance_note": "强调连招效率"
+      },
+      {
+        "phase": "后期",
+        "hero_hp": [
+          15000,
+          99999
+        ],
+        "normal_atk": [
+          2500,
+          10000
+        ],
+        "enemy_hp": [
+          8000,
+          50000
+        ],
+        "balance_note": "依赖百分比加成和套装效果"
+      }
+    ],
+    "balance_principles": [
+      {
+        "rule": "兵种克制",
+        "logic": "步克弓 -> 弓克骑 -> 骑克步"
+      },
+      {
+        "rule": "边际效用递减",
+        "logic": "单一属性堆叠超过阈值后收益降低，鼓励全面发展"
+      }
+    ]
+  }
+}

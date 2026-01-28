@@ -1,0 +1,224 @@
+{
+  "document_info": {
+    "title": "《水浒世界》UI 设计视觉规范文档",
+    "version": "1.0",
+    "designer": "Antigravity",
+    "style_definition": {
+      "name": "复古水墨像素风 (Retro Ink-Pixel Art)",
+      "core_concept": "结合中国传统水墨画的写意感与 16-bit 像素艺术的精致感",
+      "visual_elements": [
+        "古籍",
+        "木质",
+        "丝绸",
+        "毛笔笔触",
+        "宣纸晕染",
+        "古旧竹简",
+        "青砖裂纹",
+        "粗糙麻布",
+        "温润美玉"
+      ]
+    }
+  },
+  "color_palette": {
+    "primary": {
+      "hex": "#A22C27",
+      "name": "朱砂红",
+      "usage": "标题、重要按钮、血条",
+      "symbolism": "好汉的热血与反抗"
+    },
+    "secondary": {
+      "hex": "#1A1A1B",
+      "name": "水墨黑",
+      "usage": "边框、文字、阴影",
+      "symbolism": "稳重感"
+    },
+    "background": {
+      "hex": "#E8DCC4",
+      "name": "宣纸黄",
+      "usage": "面板底色",
+      "symbolism": "陈旧卷轴的视觉触感"
+    },
+    "functional": {
+      "hex": "#3E7A5E",
+      "name": "翡翠绿",
+      "usage": "体力、正面状态、装备升级提示"
+    },
+    "accent": {
+      "hex": "#D4A345",
+      "name": "琥珀金",
+      "usage": "稀有物品、特殊高亮、等级显示"
+    }
+  },
+  "typography": {
+    "title": {
+      "font_family": "像素化书法体 (繁体楷书/隶书)",
+      "characteristics": "边缘阶梯感，笔画苍劲"
+    },
+    "body": {
+      "font_family": "像素宋体",
+      "sizes": [
+        "12px",
+        "16px"
+      ],
+      "characteristics": "低分辨率高可读性"
+    }
+  },
+  "interfaces": {
+    "main_menu": {
+      "layout": "左虚右实构图",
+      "background": "梁山泊远景动态像素背景（云雾、旗帜）",
+      "elements": [
+        {
+          "name": "游戏标题",
+          "style": "红色像素书法，黑色墨晕"
+        },
+        {
+          "name": "菜单项",
+          "options": [
+            "踏入江湖",
+            "旧梦重温",
+            "江湖规矩",
+            "归隐山林"
+          ],
+          "interaction": "木牌背景，悬停颤动并出现红色像素祥云"
+        }
+      ]
+    },
+    "hud": {
+      "layout": "左上核心状态，右上小地图，底部中央技能栏",
+      "elements": [
+        {
+          "name": "生命/内力槽",
+          "visual": "像素化酒葫芦",
+          "mechanic": "左红（血量）右蓝（内力），液体高度随数值变化"
+        },
+        {
+          "name": "头像框",
+          "visual": "圆形木质边框",
+          "size": "32x32 像素头像"
+        },
+        {
+          "name": "小地图",
+          "visual": "圆形八卦方位图（乾坤震巽）",
+          "style": "古法测绘水墨地图"
+        },
+        {
+          "name": "快捷技能栏",
+          "slots": 6,
+          "style": "黑色铁艺质感正方形格子",
+          "hotkeys": [
+            "Q",
+            "W",
+            "E",
+            "R"
+          ]
+        }
+      ]
+    },
+    "inventory": {
+      "layout": "弹出式全屏面板，左侧纸娃娃，右侧物品网格",
+      "grid_size": "5x8",
+      "elements": [
+        {
+          "name": "物品格子",
+          "background": "淡黄色粗麻布纹理",
+          "selected_state": "金色像素闪烁边框"
+        },
+        {
+          "name": "角色预览",
+          "visual": "静止帧像素动画，显示盔甲与兵刃"
+        },
+        {
+          "name": "货币显示",
+          "icons": [
+            "碎银 (银色颗粒)",
+            "金锭 (长方形金块)"
+          ]
+        }
+      ],
+      "border_style": "展开的卷轴画轴，带流苏装饰"
+    },
+    "character_info": {
+      "layout": "左右结构，左属性右天赋",
+      "attributes": [
+        {
+          "name": "力量",
+          "icon": "拳头"
+        },
+        {
+          "name": "敏捷",
+          "icon": "飞燕"
+        },
+        {
+          "name": "名望",
+          "icon": "令牌"
+        }
+      ],
+      "talent_tree": {
+        "name": "天罡地煞图",
+        "background": "星空图",
+        "nodes": 108,
+        "active_state": "亮白色像素十字星"
+      },
+      "decoration": "红色“替天行道”方形像素印章"
+    },
+    "settings": {
+      "layout": "居中弹窗，半透明墨色背景",
+      "controls": {
+        "slider": "红缨头滑块，墨迹轨迹",
+        "checkbox": "叉号或“入”字勾选状态",
+        "tabs": "顶部书签形状标签页"
+      }
+    },
+    "dialogue": {
+      "layout": "底部横条，侧边半身立绘",
+      "elements": [
+        {
+          "name": "对话框",
+          "visual": "拉开的横幅丝绸，米白底色，边缘撕裂感"
+        },
+        {
+          "name": "名字标签",
+          "visual": "悬浮黑色小木牌，白色刻字"
+        },
+        {
+          "name": "继续箭头",
+          "visual": "跳动的像素红点或翻页图标"
+        }
+      ]
+    }
+  },
+  "interaction_specs": {
+    "buttons": {
+      "normal": "褐色木质纹理，深色像素描边，白色文字",
+      "hover": "木色变浅，金色像素护角",
+      "pressed": "下移 1px，颜色变暗，文字模糊"
+    },
+    "icons": {
+      "sizes": [
+        "16x16",
+        "32x32"
+      ],
+      "style": "高对比度色块，无复杂渐变",
+      "examples": [
+        {
+          "item": "剑",
+          "description": "15度倾斜，浅灰刃，深灰脊，棕色柄"
+        },
+        {
+          "item": "包袱",
+          "description": "蓝色布包，中间有绳结"
+        },
+        {
+          "item": "地图",
+          "description": "参差黄色纸张，红色叉号"
+        }
+      ]
+    }
+  },
+  "ai_generation_prompts": [
+    "Pixel art UI panel, ancient Chinese scroll texture, weathered paper background, ink wash borders, 16-bit aesthetic, traditional patterns, high contrast --ar 16:9",
+    "Pixel art icon, a traditional Chinese wine gourd, red and brown colors, 32x32 pixels, clean edges, wooden texture, game UI asset",
+    "Pixel art game button, dark wood texture, ornate golden corners, ancient Chinese style, 64x32 pixels, flat design with pixel highlights"
+  ]
+}

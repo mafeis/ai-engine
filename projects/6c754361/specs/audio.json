@@ -1,0 +1,183 @@
+{
+  "bgm": [
+    {
+      "id": "bgm_main_city_liangshan",
+      "name": "水泊梁山 (主城)",
+      "description": "雄壮、开阔、归属感。以笛子和古筝开场，随后加入厚重的弦乐与远处的号角。Prompt: Epic Chinese martial arts theme, majestic bamboo flute melody, grand orchestral strings, traditional guzheng plucking, sense of brotherhood and honor, cinematic, wide stereo.",
+      "duration": 180,
+      "tempo": "medium",
+      "mood": "Majestic"
+    },
+    {
+      "id": "bgm_city_bianliang",
+      "name": "东京汴梁 (繁华都市)",
+      "description": "喧闹、市井、宫廷感。快节奏的琵琶与中阮，伴随轻快的打击乐。Prompt: Bustling ancient Chinese city ambience, upbeat Pipa and Zhongruan, lively percussion, festive atmosphere, Northern Song Dynasty style, traditional folk ensemble.",
+      "duration": 150,
+      "tempo": "fast",
+      "mood": "Lively"
+    },
+    {
+      "id": "bgm_tavern_kuaihuolin",
+      "name": "快活林酒肆 (酒馆)",
+      "description": "悠闲、江湖、微醺感。低沉的胡琴伴随偶尔的木鱼声，节奏松散。Prompt: Relaxing tavern music, low Erhu melody, wooden percussion, rustic atmosphere, drunken folk style, intimate and warm, traditional Chinese inn vibes.",
+      "duration": 120,
+      "tempo": "slow",
+      "mood": "Relaxing"
+    },
+    {
+      "id": "bgm_explore_wilderness",
+      "name": "荒野/林间 (探索)",
+      "description": "肃杀、紧迫、危机四伏。极简的打击乐，伴随凄凉的萧声。Prompt: Desolate wilderness, eerie Xiao (vertical flute) solo, minimalist dark percussion, suspenseful, wind blowing soundscape, traditional Chinese mystery.",
+      "duration": 140,
+      "tempo": "slow",
+      "mood": "Suspenseful"
+    },
+    {
+      "id": "bgm_combat_minions",
+      "name": "杂兵遭遇战",
+      "description": "节奏明快，鼓点密集。快节奏的二胡拉弦与中国大鼓。Prompt: Fast-paced combat music, intense Chinese Taiko drums, rapid Erhu tremolo, energetic martial arts action, high adrenaline, traditional percussion ensemble.",
+      "duration": 90,
+      "tempo": "fast",
+      "mood": "Energetic"
+    },
+    {
+      "id": "bgm_combat_boss",
+      "name": "英雄对决 (BOSS战)",
+      "description": "震撼、史诗、压迫感。唢呐领奏，伴随厚重的管弦乐与人声合唱。Prompt: Epic boss battle theme, heroic Suona (Chinese trumpet) lead, powerful cinematic orchestra, deep male choir, intense rhythmic tension, legendary hero confrontation.",
+      "duration": 210,
+      "tempo": "fast",
+      "mood": "Epic"
+    },
+    {
+      "id": "bgm_combat_war",
+      "name": "攻城掠地 (大型战场)",
+      "description": "宏大、悲壮、混乱。沉重的号角，密集的战鼓，金属撞击般的节奏。Prompt: Massive war theme, deep war horns, thunderous battle drums, chaotic orchestral brass, tragic heroism, large scale battlefield atmosphere.",
+      "duration": 240,
+      "tempo": "medium",
+      "mood": "Tragic"
+    },
+    {
+      "id": "bgm_event_celebration",
+      "name": "兄弟结义/庆功",
+      "description": "豪迈、暖心、明亮。唢呐高亢但柔和，伴随响亮的锣鼓。Prompt: Joyful celebration theme, bright Suona melody, festive gongs and cymbals, warm brotherhood atmosphere, triumphant Chinese folk music.",
+      "duration": 60,
+      "tempo": "medium",
+      "mood": "Triumphant"
+    },
+    {
+      "id": "bgm_event_tragedy",
+      "name": "英雄陨落/悲剧",
+      "description": "凄凉、哀恸。极慢的二胡长音，伴随空灵的古琴。Prompt: Sorrowful funeral theme, weeping Erhu solo, minimalist Guqin, tragic and emotional, slow tempo, sense of loss and mourning.",
+      "duration": 100,
+      "tempo": "slow",
+      "mood": "Sorrowful"
+    }
+  ],
+  "sfx": [
+    {
+      "id": "sfx_footstep_grass",
+      "name": "脚步声 (草地)",
+      "description": "干燥的草叶摩擦声。(Dry grass crunching, light leather boot steps)",
+      "duration": 0.5,
+      "category": "character"
+    },
+    {
+      "id": "sfx_footstep_wood",
+      "name": "脚步声 (木板)",
+      "description": "沉重的木头回响，模拟酒楼地板。(Thumping wood floor, creaking planks, heavy footsteps)",
+      "duration": 0.6,
+      "category": "character"
+    },
+    {
+      "id": "sfx_atk_slash",
+      "name": "攻击 (挥砍)",
+      "description": "凌厉的破空声。(Sharp sword swoosh, high-frequency air cutting)",
+      "duration": 0.8,
+      "category": "character"
+    },
+    {
+      "id": "sfx_atk_blunt",
+      "name": "攻击 (打击)",
+      "description": "重型钝器（如鲁智深禅杖）击中肉体的闷响。(Heavy blunt impact, bone crushing thud, deep bass)",
+      "duration": 1.2,
+      "category": "character"
+    },
+    {
+      "id": "sfx_dmg_armor",
+      "name": "受击 (甲片撞击)",
+      "description": "角色受击时金属盔甲的震动声。(Metallic armor clinking, chainmail impact)",
+      "duration": 0.7,
+      "category": "character"
+    },
+    {
+      "id": "sfx_death_fall",
+      "name": "死亡 (倒地)",
+      "description": "沉重的躯体撞击尘土的声音。(Heavy body fall, dust impact, thud)",
+      "duration": 1.5,
+      "category": "character"
+    },
+    {
+      "id": "sfx_env_water",
+      "name": "水泊波动",
+      "description": "梁山水泊微弱的浪花拍岸声。(Gentle lake ripples, water splashing against wooden boat, serene nature)",
+      "duration": 5.0,
+      "category": "environment"
+    },
+    {
+      "id": "sfx_env_war_amb",
+      "name": "战场环境",
+      "description": "远处的厮杀声、马鸣声、旗帜在风中猎猎作响。(Distant battlefield screams, horse neighing, cloth fluttering in strong wind, chaotic background)",
+      "duration": 10.0,
+      "category": "environment"
+    },
+    {
+      "id": "sfx_env_weather_snow",
+      "name": "风雪 (山神庙)",
+      "description": "寒风呼啸，夹杂着雪粒撞击木门的声音。(Howling winter wind, blizzard ambience, rattling wooden door)",
+      "duration": 8.0,
+      "category": "environment"
+    },
+    {
+      "id": "sfx_ui_confirm",
+      "name": "UI 点击/确认",
+      "description": "响亮的木板快板声或清脆的玉石碰撞声。(Crisp Chinese woodblock clack, jade stone clinking, positive feedback)",
+      "duration": 0.4,
+      "category": "ui"
+    },
+    {
+      "id": "sfx_ui_cancel",
+      "name": "UI 取消/返回",
+      "description": "沉闷的纸张翻动声。(Heavy paper parchment rustling, low frequency thud)",
+      "duration": 0.5,
+      "category": "ui"
+    },
+    {
+      "id": "sfx_ui_quest_done",
+      "name": "任务达成",
+      "description": "清脆的铃铛声伴随短促的古筝扫弦。(Clear bell chime, short Guzheng glissando, rewarding sound)",
+      "duration": 2.5,
+      "category": "ui"
+    },
+    {
+      "id": "sfx_item_drinking",
+      "name": "道具 (饮酒)",
+      "description": "液体倒入瓷碗的咕嘟声，随后是豪爽的摔碗声。(Liquid pouring into ceramic bowl, glugging sound, ceramic bowl shattering)",
+      "duration": 3.5,
+      "category": "item"
+    },
+    {
+      "id": "sfx_item_money",
+      "name": "道具 (拾取铜钱)",
+      "description": "大量金属硬币碰撞的清脆声。(Jingling copper coins, metallic clinking, money bag handling)",
+      "duration": 1.2,
+      "category": "item"
+    },
+    {
+      "id": "sfx_item_scroll",
+      "name": "道具 (展开卷轴)",
+      "description": "粗糙纸张或丝绸摩擦展开的声音。(Unrolling ancient paper scroll, friction sound of silk and parchment)",
+      "duration": 1.5,
+      "category": "item"
+    }
+  ]
+}

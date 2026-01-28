@@ -1,0 +1,270 @@
+{
+  "scenes": [
+    {
+      "id": "liangshan_hall",
+      "name": "梁山泊·聚义厅",
+      "width": 1280,
+      "height": 720,
+      "description": "雄伟、庄重、英雄集结的豪气。主色调为赭石色、暗金色、深蓝色。室内有强烈的火把光效，形成高对比度的动感阴影。室外远景为水汽氤氲的湖泊，伴有微弱的波浪像素动画。",
+      "background_color": "#4B3621",
+      "elements": [
+        {
+          "type": "interactive",
+          "name": "替天行道大旗",
+          "position": {
+            "x": 640,
+            "y": 200
+          },
+          "function": "查看阵营声望与排行榜"
+        },
+        {
+          "type": "interactive",
+          "name": "108把交椅",
+          "position": {
+            "x": 300,
+            "y": 400
+          },
+          "function": "切换出战角色"
+        },
+        {
+          "type": "interactive",
+          "name": "沙盘",
+          "position": {
+            "x": 640,
+            "y": 500
+          },
+          "function": "开启世界地图征战"
+        },
+        {
+          "type": "decoration",
+          "name": "跳动的篝火堆",
+          "position": {
+            "x": 100,
+            "y": 600
+          }
+        },
+        {
+          "type": "decoration",
+          "name": "堆积的酒坛",
+          "position": {
+            "x": 1100,
+            "y": 650
+          }
+        },
+        {
+          "type": "decoration",
+          "name": "悬挂的兵器",
+          "position": {
+            "x": 200,
+            "y": 150
+          }
+        }
+      ],
+      "connections": [
+        "world_map"
+      ],
+      "bgm_id": "bgm_liangshan_heroic"
+    },
+    {
+      "id": "jingyang_ridge",
+      "name": "景阳冈·密林",
+      "width": 2560,
+      "height": 480,
+      "description": "阴森、肃杀、危机四伏的横向长卷。包含随风摇摆的枯草、遮挡视线的浓雾层（Parallax Layers）以及偶尔掠过的惊鸟。",
+      "background_color": "#1A2421",
+      "elements": [
+        {
+          "type": "interactive",
+          "name": "枯树枝",
+          "position": {
+            "x": 500,
+            "y": 450
+          },
+          "function": "踩踏发声吸引野兽"
+        },
+        {
+          "type": "interactive",
+          "name": "猎人陷阱",
+          "position": {
+            "x": 1200,
+            "y": 460
+          },
+          "function": "限制敌方移动"
+        },
+        {
+          "type": "interactive",
+          "name": "告示牌",
+          "position": {
+            "x": 200,
+            "y": 400
+          },
+          "function": "触发大虫背景剧情"
+        },
+        {
+          "type": "decoration",
+          "name": "浓雾层",
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "platform",
+          "name": "隆起的土丘",
+          "position": {
+            "x": 1800,
+            "y": 400
+          }
+        }
+      ],
+      "connections": [
+        "world_map",
+        "mountain_god_temple"
+      ],
+      "bgm_id": "bgm_jingyang_suspense"
+    },
+    {
+      "id": "tokyo_market",
+      "name": "东京汴梁·闹市",
+      "width": 1920,
+      "height": 1080,
+      "description": "繁华、喧嚣、市井烟火气。多层卷轴设计，包含层叠的瓦片屋顶、随风飘动的布幌子和远景中的大相国寺轮廓。",
+      "background_color": "#F4A460",
+      "elements": [
+        {
+          "type": "interactive",
+          "name": "路边摊位",
+          "position": {
+            "x": 400,
+            "y": 800
+          },
+          "function": "购买补给物资"
+        },
+        {
+          "type": "interactive",
+          "name": "告示榜",
+          "position": {
+            "x": 960,
+            "y": 750
+          },
+          "function": "领取通缉任务"
+        },
+        {
+          "type": "interactive",
+          "name": "勾栏瓦舍入口",
+          "position": {
+            "x": 1500,
+            "y": 800
+          },
+          "function": "进入支线剧情"
+        },
+        {
+          "type": "decoration",
+          "name": "像素NPC行人",
+          "position": {
+            "x": 800,
+            "y": 850
+          }
+        },
+        {
+          "type": "platform",
+          "name": "瓦片屋顶",
+          "position": {
+            "x": 400,
+            "y": 400
+          }
+        }
+      ],
+      "connections": [
+        "world_map",
+        "xunyang_tavern"
+      ],
+      "bgm_id": "bgm_tokyo_lively"
+    },
+    {
+      "id": "mountain_god_temple",
+      "name": "沧州·风雪山神庙",
+      "width": 960,
+      "height": 540,
+      "description": "凄凉、绝望中爆发的杀意。主色调为极地蓝、纯白、血红色。狂暴的像素雪花粒子遮蔽视线，地面有积雪覆盖效果。冷色调月光透过破碎窗户射入。",
+      "background_color": "#E0FFFF",
+      "elements": [
+        {
+          "type": "decoration",
+          "name": "破碎的窗户",
+          "position": {
+            "x": 480,
+            "y": 200
+          }
+        },
+        {
+          "type": "decoration",
+          "name": "雪地血迹",
+          "position": {
+            "x": 700,
+            "y": 500
+          }
+        },
+        {
+          "type": "decoration",
+          "name": "孤零零的灯笼",
+          "position": {
+            "x": 100,
+            "y": 150
+          }
+        },
+        {
+          "type": "platform",
+          "name": "供奉台",
+          "position": {
+            "x": 480,
+            "y": 450
+          }
+        }
+      ],
+      "connections": [
+        "liangshan_hall"
+      ],
+      "bgm_id": "bgm_temple_melancholic"
+    },
+    {
+      "id": "xunyang_tavern",
+      "name": "浔阳楼·酒肆",
+      "width": 640,
+      "height": 480,
+      "description": "文人墨客与江湖游侠的交汇，精致室内场景。氛围悠扬、清雅，伴有轻微的杯盏碰撞声。",
+      "background_color": "#8B4513",
+      "elements": [
+        {
+          "type": "interactive",
+          "name": "酒桌",
+          "position": {
+            "x": 320,
+            "y": 350
+          },
+          "function": "招募英雄/小游戏"
+        },
+        {
+          "type": "decoration",
+          "name": "古琴",
+          "position": {
+            "x": 100,
+            "y": 300
+          }
+        },
+        {
+          "type": "decoration",
+          "name": "屏风",
+          "position": {
+            "x": 500,
+            "y": 250
+          }
+        }
+      ],
+      "connections": [
+        "tokyo_market"
+      ],
+      "bgm_id": "bgm_xunyang_elegant"
+    }
+  ]
+}

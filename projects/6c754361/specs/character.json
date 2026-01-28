@@ -1,0 +1,219 @@
+{
+  "characters": [
+    {
+      "id": "protagonist_109th_star",
+      "name": "天命之人",
+      "type": "protagonist",
+      "appearance": "16-bit 高级像素风，约 3.5 头身。黑色短发扎小发髻，青色北斗七星抹额。内穿米白色交领长袍，外罩深蓝色无袖短褐，腰系棕色皮质腰带挂“天命星盘”。黑色束腿裤配草鞋，绑腿塞有黄色符纸。周身有金色像素粒子升起。",
+      "stats": {
+        "hp": 500,
+        "attack": 55,
+        "defense": 40,
+        "speed": 45
+      },
+      "skills": [
+        {
+          "id": "star_burst",
+          "name": "星辰破",
+          "damage": 85,
+          "cooldown": 6
+        },
+        {
+          "id": "brotherhood_oath",
+          "name": "聚义令",
+          "damage": 0,
+          "cooldown": 0
+        },
+        {
+          "id": "heavenly_justice",
+          "name": "替天行道",
+          "damage": 250,
+          "cooldown": 120
+        }
+      ],
+      "animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death",
+        "cut-in"
+      ]
+    },
+    {
+      "id": "npc_song_jiang",
+      "name": "宋江 (呼保义)",
+      "type": "npc",
+      "appearance": "矮黑身材，面容和善。穿着破损的紫色绸缎官服，手持泛黄《天书》。头顶有淡淡紫色云团特效。",
+      "stats": {
+        "hp": 1000,
+        "attack": 20,
+        "defense": 80,
+        "speed": 20
+      },
+      "skills": [
+        {
+          "id": "camp_manage",
+          "name": "营地管理",
+          "damage": 0,
+          "cooldown": 0
+        }
+      ],
+      "animations": [
+        "idle",
+        "talk"
+      ]
+    },
+    {
+      "id": "npc_wu_yong",
+      "name": "吴用 (智多星)",
+      "type": "npc",
+      "appearance": "像素文人形象。头戴纶巾，手摇闪烁白色光点的羽扇。留有三绺长须，眼神精明。",
+      "stats": {
+        "hp": 400,
+        "attack": 30,
+        "defense": 30,
+        "speed": 70
+      },
+      "skills": [
+        {
+          "id": "tactical_guide",
+          "name": "阵法解锁",
+          "damage": 0,
+          "cooldown": 0
+        }
+      ],
+      "animations": [
+        "idle",
+        "fan_wave",
+        "talk"
+      ]
+    },
+    {
+      "id": "npc_zhang_sun",
+      "name": "张青/孙二娘",
+      "type": "npc",
+      "appearance": "张青：粗犷，围油腻围裙，拿菜刀。孙二娘：红色抹胸，腰插双短刀，发间插大红花。",
+      "stats": {
+        "hp": 700,
+        "attack": 60,
+        "defense": 50,
+        "speed": 40
+      },
+      "skills": [
+        {
+          "id": "supply_shop",
+          "name": "十字坡补给",
+          "damage": 0,
+          "cooldown": 0
+        }
+      ],
+      "animations": [
+        "idle",
+        "cook",
+        "talk"
+      ]
+    },
+    {
+      "id": "enemy_minion",
+      "name": "贪官爪牙",
+      "type": "enemy",
+      "appearance": "暗红色官服，歪斜黑帽子，手持锈长矛。眯眯眼，表情猥琐。",
+      "stats": {
+        "hp": 120,
+        "attack": 25,
+        "defense": 15,
+        "speed": 30
+      },
+      "skills": [
+        {
+          "id": "charge",
+          "name": "成群冲锋",
+          "damage": 30,
+          "cooldown": 5
+        },
+        {
+          "id": "beg_mercy",
+          "name": "跪地求饶",
+          "damage": 15,
+          "cooldown": 10
+        }
+      ],
+      "animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "beg",
+        "death"
+      ]
+    },
+    {
+      "id": "enemy_elite_general",
+      "name": "虎威将军",
+      "type": "enemy",
+      "appearance": "体型巨大（普通兵两倍）。身披青铜重甲，手持巨大流星锤。头盔缝隙透出红色凶光。",
+      "stats": {
+        "hp": 1500,
+        "attack": 90,
+        "defense": 120,
+        "speed": 20
+      },
+      "skills": [
+        {
+          "id": "wide_sweep",
+          "name": "大范围横扫",
+          "damage": 110,
+          "cooldown": 8
+        },
+        {
+          "id": "shield_bash",
+          "name": "冲撞破坏",
+          "damage": 80,
+          "cooldown": 12
+        }
+      ],
+      "animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ]
+    },
+    {
+      "id": "enemy_boss_wusong",
+      "name": "幻影·武松",
+      "type": "enemy",
+      "appearance": "邪气侵蚀状态。赤裸上身，肌肉夸张，有猛虎纹身。双眼喷紫火，手持两把黑气戒刀。",
+      "stats": {
+        "hp": 8000,
+        "attack": 150,
+        "defense": 100,
+        "speed": 80
+      },
+      "skills": [
+        {
+          "id": "frenzy_slash",
+          "name": "高频连斩",
+          "damage": 45,
+          "cooldown": 2
+        },
+        {
+          "id": "tiger_pounce",
+          "name": "幻化虎影扑杀",
+          "damage": 300,
+          "cooldown": 20
+        }
+      ],
+      "animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death",
+        "phase_change"
+      ]
+    }
+  ]
+}

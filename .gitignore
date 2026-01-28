@@ -26,5 +26,5 @@ dist/
 Thumbs.db
 
 # 项目生成的临时文件或输出 (根据需要调整)
-projects/
-shared/
+# projects/
+# shared/
