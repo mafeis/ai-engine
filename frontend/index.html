@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 游戏引擎</title>
+    <link rel="stylesheet" href="/src/styles/main.css">
+    <!-- Markdown 渲染库 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- 代码高亮 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11/styles/github-dark.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 头部导航 -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🎮</span>
+                <span class="logo-text">AI 游戏引擎</span>
+            </div>
+            <nav class="nav">
+                <a href="#projects" class="nav-link active" data-tab="projects">项目</a>
+                <a href="#docs" class="nav-link" data-tab="docs">文档</a>
+                <a href="#resources" class="nav-link" data-tab="resources">资源</a>
+                <a href="#preview" class="nav-link" data-tab="preview">预览</a>
+            </nav>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="main">
+            <!-- 侧边栏 - 项目列表 -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h2>项目列表</h2>
+                    <button id="create-project-btn" class="btn btn-primary">
+                        + 新建项目
+                    </button>
+                </div>
+                <div id="project-list" class="project-list">
+                    <!-- 项目列表将通过 JS 动态加载 -->
+                    <div class="empty-state">
+                        <span>暂无项目</span>
+                        <small>点击上方按钮创建第一个游戏</small>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- 内容区 -->
+            <section class="content">
+                <div id="welcome-panel" class="panel">
+                    <h1>欢迎使用 AI 游戏引擎</h1>
+                    <p>通过自然语言描述，让 AI 帮你创建游戏。</p>
+
+                    <div class="workflow-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>创建项目</h3>
+                                <p>输入游戏名称和简介</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>生成文档</h3>
+                                <p>AI 自动扩写设计文档</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>创建资源</h3>
+                                <p>AI 生成图片和音频</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h3>预览游戏</h3>
+                                <p>实时预览并导出</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目详情面板 -->
+                <div id="project-panel" class="panel hidden">
+                    <!-- 将通过 JS 动态填充 -->
+                </div>
+
+                <!-- 文档查看面板 -->
+                <div id="document-panel" class="panel hidden">
+                    <div class="document-header">
+                        <button class="btn btn-secondary" id="back-to-project">← 返回项目</button>
+                        <h2 id="document-title">文档标题</h2>
+                        <div class="document-actions">
+                            <button class="btn btn-primary" id="extract-spec-btn" style="display:none">📊
+                                提取JSON规格</button>
+                            <button class="btn btn-secondary" id="edit-doc-btn">✏️ 编辑</button>
+                            <button class="btn btn-primary" id="save-doc-btn" style="display:none">💾 保存</button>
+                        </div>
+                    </div>
+                    <div id="document-content" class="markdown-body">
+                        <!-- Markdown 渲染内容 -->
+                    </div>
+                    <textarea id="document-editor" class="document-editor hidden"></textarea>
+                </div>
+
+                <!-- 资源管理面板 -->
+                <div id="resource-panel" class="panel hidden">
+                    <div class="resource-header">
+                        <button class="btn btn-secondary" id="back-from-resource">← 返回项目</button>
+                        <h2 id="resource-panel-title">资源列表</h2>
+                    </div>
+                    <div id="resource-items-list">
+                        <!-- 资源条目列表 -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 创建项目对话框 -->
+    <dialog id="create-project-dialog" class="dialog">
+        <form id="create-project-form">
+            <h2>创建新游戏项目</h2>
+
+            <div class="form-group">
+                <label for="project-name">游戏名称</label>
+                <input type="text" id="project-name" name="name" required placeholder="例如: 星际冒险">
+            </div>
+
+            <div class="form-group">
+                <label for="project-intro">游戏简介</label>
+                <textarea id="project-intro" name="intro" required rows="4" placeholder="简单描述你的游戏创意..."></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="game-type">游戏类型</label>
+                    <select id="game-type" name="game_type">
+                        <option value="2D横版">2D横版</option>
+                        <option value="RPG">RPG</option>
+                        <option value="塔防">塔防</option>
+                        <option value="休闲">休闲</option>
+                        <option value="射击">射击</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="art-style">美术风格</label>
+                    <select id="art-style" name="art_style">
+                        <option value="像素风">像素风</option>
+                        <option value="Q版卡通">Q版卡通</option>
+                        <option value="写实">写实</option>
+                        <option value="手绘">手绘</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="dialog-actions">
+                <button type="button" class="btn btn-secondary" onclick="this.closest('dialog').close()">
+                    取消
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    创建项目
+                </button>
+            </div>
+        </form>
+    </dialog>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+# Python 编译文件
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 环境文件
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Node 依赖
+node_modules/
+dist/
+
+# IDE 设置
+.vscode/
+.idea/
+
+# 日志
+*.log
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+
+# 项目生成的临时文件或输出 (根据需要调整)
+projects/
+shared/
