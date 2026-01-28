@@ -116,19 +116,22 @@ class LLMService:
 6. 数值平衡 (关键数值范围定义)""",
 
             "scene": f"""你是一位专业的游戏场景设计师，请根据以下游戏信息创建场景设计文档。
-
+    
 游戏名称: {project_name}
 游戏简介: {project_intro}
 美术风格: {art_style}
 
 请创建包含以下内容的 Markdown 文档:
-1. 场景列表 (所有游戏场景，每个场景包含名称、氛围描述、尺寸规格)
-2. 场景元素 (每个场景包含的可交互元素、装饰元素)
-3. 场景流转 (场景间的连接关系)
-4. 视觉设计 (每个场景的主色调、光照、天气效果)
-5. 背景音乐建议
+1. 场景列表: 每个场景需包含：
+   - 名称与基本描述
+   - 场景总尺寸 (如 1920x1080)
+   - **布局布局 (Layout Structure)**: 详细描述场景的区域划分（如：左侧是森林，中间是祭坛，背景是雪山）。
+   - **地块与物件清单**: 列出该场景中包含的所有静态建筑、植被、装饰物及其相对位置描述。
+2. 场景流转图 (场景间的连接关系)
+3. 视觉气氛 (每个场景的主色调、光照强度)
+4. 背景音乐建议
 
-每个场景需要详细的自然语言描述，用于后续 AI 生成。""",
+每个场景描述必须足够详细，不仅仅是描述，而要包含“空间布局”的信息，例如：“中央是一个 400x400 的石砌广场，广场北侧紧挨着两座哥特式箭塔”。""",
 
             "item": f"""你是一位专业的游戏道具设计师，请根据以下游戏信息创建道具设计文档。
 
@@ -237,10 +240,18 @@ class LLMService:
       "name": "string",
       "width": 1920,
       "height": 1080,
-      "description": "自然语言描述",
+      "layout_description": "详细的布局描述，包含地貌分布、建筑位置等",
+      "grid_info": {"rows": 8, "cols": 12, "cell_size": 128},
+      "elements": [
+        {
+            "name": "元素名称",
+            "type": "building|tree|rock|platform|water", 
+            "rect": {"x": 0, "y": 0, "w": 100, "h": 100},
+            "description": "视觉细节描述"
+        }
+      ],
       "background_color": "#000000",
-      "elements": [{"type": "platform|decoration|interactive", "position": {"x": 0, "y": 0}}],
-      "connections": ["scene_id_1", "scene_id_2"],
+      "connections": ["scene_id_1"],
       "bgm_id": "string"
     }
   ]
@@ -335,7 +346,37 @@ class LLMService:
         Returns:
             可执行的 Python 脚本代码
         """
-        if category == "image":
+        if resource_type == "scene":
+            # 场景生成：基于布局描述和元素列表
+            prompt = f"""请生成一个 Python 脚本，使用 PIL (Pillow) 库绘制以下 场景布局简图 (Layout Map)。
+
+场景条目: {params.get('name', '未命名场景')}
+尺寸: {params.get('width', 1920)}x{params.get('height', 1080)} 像素
+核心布局描述: {params.get('layout_description', '未提供')}
+网格信息: {params.get('grid_info', '未提供')}
+美术风格: {params.get('style', 'pixel')}
+
+元素清单 (elements):
+{json.dumps(params.get('elements', []), ensure_ascii=False, indent=2)}
+
+要求:
+1. **脚本接口**: 必须接受 --output 和 --seed (整数) 两个命令行参数。使用 `random.seed(args.seed)`。
+2. **绘制核心 ( layout_map )**:
+   - 这是一个“宏观布局图”。
+   - **背景**: 根据 `background_color` ({params.get('background_color', '#000000')}) 填充底色。
+   - **地貌绘制**: 根据 `layout_description` 绘制大的地形色块（如左侧深绿色森林区，底部灰色高原等）。
+   - **建筑与物品绘制**: 遍历 `elements` 数组，在指定的 `rect` (x, y, w, h) 位置绘制对应的占位色块。
+     - 如果 type 是 building，绘制一个具象化的简易外轮廓。
+     - 如果 type 是 water/river，绘制蓝色调的色块。
+   - **标注**: 在重要元素中心位置用 `draw.text` 标注其 `name`。
+3. **视觉表现**: 
+   - 增加简单的渐变或纹理，使布局图看起来像是一张专业的设计草图或“关卡俯视图”。
+   - 确保所有坐标计算严谨。
+4. **输出**: 保存为 RGBA PNG。
+
+代码质量: 包含完整的 import，添加详细中文注释。确保代码在 `if __name__ == '__main__': main()` 中执行。"""
+        
+        elif category == "image":
             prompt = f"""请生成一个 Python 脚本，使用 PIL (Pillow) 库绘制以下图像资源。
 
 资源类型: {resource_type}
@@ -347,26 +388,18 @@ class LLMService:
 要求:
 1. **脚本接口**: 必须接受 --output 和 --seed (整数) 两个命令行参数。
 2. **随机性与变体**: 必须使用 `random.seed(args.seed)`。种子必须显著影响生成结果。不同的种子应该产生完全不同的视觉方案。
-3. **坐标安全 (重要)**: 确保所有 `draw.ellipse`, `draw.rectangle` 等调用的坐标满足 [x0, y0, x1, y1] 中 x0 < x1 且 y0 < y1。使用 `min/max` 或 `sorted` 确保坐标有效，防止 ValueError。
-4. **算法级优化 (核心)**:
-   - **颜色优化**: 种子决定主色调（暖、冷、中性等）和对比度。
-   - **渲染优化**: 必须实现三层绘制逻辑：1. 底层阴影/轮廓；2. 中层主体形状；3. 顶层高光/边缘细节。
-   - **纹理优化**: **必须**实现一个简单的辅助函数，在绘制的主体表面添加噪点或颗粒纹理（Texture Noise），使画面不再是单调的平铺色块。
-5. **视觉表现**: 充分利用 PIL 的绘图功能。如果是像素风，请通过绘制小的色块矩阵来模拟。背景必须透明 (RGBA)。
-6. **代码质量**:
-   - 包含完整的 import (Image, ImageDraw, ImageColor, random, argparse)。
-   - 添加详细的中文注释。
-   - 确保代码在 `if __name__ == '__main__': main()` 中执行。
+3. **坐标安全 (重要)**: 确保所有 `draw.ellipse`, `draw.rectangle` 等调用的坐标满足 [x0, y0, x1, y1] 中 x0 < x1 且 y0 < y1。
+4. **算法级逻辑**:
+   - **分层绘制**: 1. 投影/阴影；2. 基础轮廓；3. 高光与细节。
+   - **纹理处理**: 使用循环在绘制好的形状内随机添加像素级的颜色偏差（Texture Noise），增加质感。
+5. **视觉表现**: 背景必须透明 (RGBA)。
+6. **代码规范**: 完整导入，详细中文注释。在 `if __name__ == '__main__':` 中执行。
 
-示例脚本结构:
+示例结构:
 ```python
 import argparse
 import random
 from PIL import Image, ImageDraw, ImageColor
-
-def add_noise(draw, x_range, y_range, color):
-    # 为指定区域添加纹理噪点的辅助函数
-    pass
 
 def main():
     parser = argparse.ArgumentParser()
@@ -374,23 +407,13 @@ def main():
     parser.add_argument('--seed', type=int, default=1)
     args = parser.parse_args()
     random.seed(args.seed)
-    
-    size = {params.get('size', 64)}
-    img = Image.new('RGBA', (size, size), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(img)
-    
-    # 1. 确定调色板与渲染风格
-    # 2. 绘制阴影层
-    # 3. 绘制主体层
-    # 4. 绘制高光细节
-    # 5. 添加表面纹理
-    
-    img.save(args.output, 'PNG')
+    # ... 绘图逻辑 ...
+    # img.save(args.output, 'PNG')
 
 if __name__ == '__main__':
     main()
 ```
-请根据描述生成绘制精美、且具备算法级优化的 Python 绘图代码。"""
+请只输出代码。"""
 
         else:  # audio
             prompt = f"""请生成一个 Python 脚本，使用 numpy 和 scipy 库生成以下音频资源。

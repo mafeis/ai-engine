@@ -194,25 +194,43 @@ async def list_variants(project_id: str, resource_type: str, resource_id: str):
         resource_config["folder"], resource_id, "variants"
     )
     
-    if not os.path.exists(variants_dir):
-        return {"variants": [], "total": 0}
-    
     variants = []
-    for filename in os.listdir(variants_dir):
-        if filename.endswith(".json"):
-            with open(os.path.join(variants_dir, filename), "r", encoding="utf-8") as f:
-                variant_data = json.load(f)
-                # 检查文件是否真实存在
-                variant_data["exists"] = os.path.exists(variant_data.get("file_path", ""))
-                variants.append(variant_data)
+    if os.path.exists(variants_dir):
+        for filename in os.listdir(variants_dir):
+            if filename.endswith(".json"):
+                with open(os.path.join(variants_dir, filename), "r", encoding="utf-8") as f:
+                    variant_data = json.load(f)
+                    # 检查文件是否真实存在
+                    variant_data["exists"] = os.path.exists(variant_data.get("file_path", ""))
+                    variants.append(variant_data)
+        
+        # 按创建时间排序
+        variants.sort(key=lambda x: x.get("created_at", ""), reverse=True)
     
-    # 按创建时间排序
-    variants.sort(key=lambda x: x.get("created_at", ""), reverse=True)
-    
+    # 检查是否存在正式资源资产
+    assets_resource_dir = os.path.join(project_path, "assets", resource_config["folder"], resource_id)
+    final_filename = f"{resource_id}{resource_config['extension']}"
+    final_file_path = os.path.join(assets_resource_dir, final_filename)
+    has_final_asset = os.path.exists(final_file_path)
+
+    # 如果正式目录有文件，但变体列表里没标记选中，或者变体列表为空，我们合成一个选中的变体
+    has_selected_in_variants = any(v.get("selected") for v in variants)
+    if has_final_asset and not has_selected_in_variants:
+        # 合成一个虚拟的选中变体用于展示
+        stat = os.stat(final_file_path)
+        variants.insert(0, {
+            "variant_id": "selected_final",
+            "file_path": final_file_path,
+            "created_at": datetime.fromtimestamp(stat.st_mtime).isoformat(),
+            "selected": True,
+            "exists": True,
+            "is_final": True
+        })
+
     # 检查是否存在序列帧动画 (仅限角色)
     animation = None
     if resource_type == "character":
-        anim_path = os.path.join(project_path, "assets", "characters", resource_id, "animations", "spritesheet.png")
+        anim_path = os.path.join(assets_resource_dir, "animations", "spritesheet.png")
         if os.path.exists(anim_path):
             animation = {
                 "spritesheet_url": f"/assets/{project_id}/assets/characters/{resource_id}/animations/spritesheet.png",
@@ -496,7 +514,19 @@ async def generate_item_resource(project_id: str, request: GenerateItemRequest):
     if request.spec_type == "character":
         description = item.get("appearance", item.get("name", ""))
     elif request.spec_type == "scene":
-        description = item.get("description", item.get("name", ""))
+        description = item.get("layout_description", item.get("name", ""))
+        # 扩展场景参数：将结构化数据传给 LLM
+        if not request.params:
+            request.params = {}
+        request.params.update({
+            "name": item.get("name"),
+            "width": item.get("width", 1920),
+            "height": item.get("height", 1080),
+            "layout_description": item.get("layout_description"),
+            "grid_info": item.get("grid_info"),
+            "elements": item.get("elements"),
+            "background_color": item.get("background_color", "#000000")
+        })
     elif request.spec_type == "item":
         description = item.get("appearance", item.get("description", item.get("name", "")))
     else:
