@@ -252,16 +252,22 @@ async def list_variants(project_id: str, resource_type: str, resource_id: str):
                             w, h = img.size
                             # 假设是横向排列。如果 w=h 是单帧，否则 w/h 是帧数
                             frame_count = max(1, w // h)
+                            
+                            # 【新增】检测内容的实际包围盒，用于减少透明边框导致的缩放过小问题
+                            content_bbox = img.getbbox() # (left, top, right, bottom)
+                            
                             animation["types"][atype] = {
                                 "url": f"/assets/{project_id}/assets/characters/{resource_id}/animations/{filename}",
                                 "frames": frame_count,
-                                "frameSize": h  # 记录原始分辨率（单帧宽高）
+                                "frameSize": h,
+                                "content_bbox": content_bbox # 传递给前端进行精准缩放
                             }
                     except:
                         animation["types"][atype] = {
                             "url": f"/assets/{project_id}/assets/characters/{resource_id}/animations/{filename}",
                             "frames": 4,
-                            "frameSize": 64
+                            "frameSize": 64,
+                            "content_bbox": [0, 0, 64, 64]
                         }
     
     return {
@@ -427,7 +433,16 @@ async def upload_character_animation(
     # 确定文件名
     if anim_type == "full":
         filename = "spritesheet.png"
+        # 【核心修复】如果上传的是完整图，干掉之前可能存在的独立动作图，防止冲突
+        for atype in ["idle", "walk", "attack"]:
+            old_file = os.path.join(anim_dir, f"anim_{atype}.png")
+            if os.path.exists(old_file):
+                try:
+                    os.remove(old_file)
+                except:
+                    pass
     else:
+        # 如果上传独立动作，确保独立动作的文件名正确
         filename = f"anim_{anim_type}.png"
         
     output_path = os.path.join(anim_dir, filename)

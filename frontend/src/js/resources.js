@@ -248,7 +248,7 @@ export function renderVariantsHtml(result, projectId, specType, itemId) {
                 const isCustom = !!customData;
                 const frames = isCustom ? customData.frames : 4;
                 const frameSize = isCustom ? (customData.frameSize || 64) : 64;
-                const sheetUrl = isCustom ? ('http://localhost:8000' + customData.url) : ('http://localhost:8000' + animation.spritesheet_url);
+                const sheetUrl = (isCustom ? ('http://localhost:8000' + customData.url) : ('http://localhost:8000' + animation.spritesheet_url)) + `?t=${Date.now()}`;
 
                 // 动态调整动画样式
                 const spriteWidth = frames * frameSize;

@@ -188,25 +188,26 @@ export function startInteractivePreview(projectId) {
                     const baseUrl = 'http://localhost:8000';
 
                     // 检查是否有分段动画
+                    const timestamp = `?t=${Date.now()}`;
                     if (anims.types && (anims.types.idle || anims.types.walk || anims.types.attack)) {
                         ["idle", "walk", "attack"].forEach(type => {
                             const custom = anims.types[type];
                             if (custom) {
                                 const fSize = custom.frameSize || 64;
-                                this.load.spritesheet(`p_sheet_${type}`, baseUrl + custom.url, {
+                                this.load.spritesheet(`p_sheet_${type}`, baseUrl + custom.url + timestamp, {
                                     frameWidth: fSize,
                                     frameHeight: fSize
                                 });
                             }
                         });
                         // 兜底主图
-                        this.load.spritesheet('player', baseUrl + anims.spritesheet_url, { frameWidth: 64, frameHeight: 64 });
+                        this.load.spritesheet('player', baseUrl + anims.spritesheet_url + timestamp, { frameWidth: 64, frameHeight: 64 });
                     } else {
                         // 只有原有的整体图
-                        this.load.spritesheet('player', baseUrl + anims.spritesheet_url, { frameWidth: 64, frameHeight: 64 });
+                        this.load.spritesheet('player', baseUrl + anims.spritesheet_url + timestamp, { frameWidth: 64, frameHeight: 64 });
                     }
                 } else {
-                    this.load.image('player', charData.imgUrl);
+                    this.load.image('player', charData.imgUrl + `?t=${Date.now()}`);
                 }
 
                 if (monsterData) {
@@ -214,22 +215,23 @@ export function startInteractivePreview(projectId) {
                         const mAnims = monsterData.animation;
                         const baseUrl = 'http://localhost:8000';
                         if (mAnims.types && (mAnims.types.idle || mAnims.types.walk)) {
+                            const mTimestamp = `?t=${Date.now()}`;
                             ["idle", "walk"].forEach(type => {
                                 const custom = mAnims.types[type];
                                 if (custom) {
                                     const fSize = custom.frameSize || 64;
-                                    this.load.spritesheet(`m_sheet_${type}`, baseUrl + custom.url, {
+                                    this.load.spritesheet(`m_sheet_${type}`, baseUrl + custom.url + mTimestamp, {
                                         frameWidth: fSize,
                                         frameHeight: fSize
                                     });
                                 }
                             });
-                            this.load.spritesheet('monster', baseUrl + mAnims.spritesheet_url, { frameWidth: 64, frameHeight: 64 });
+                            this.load.spritesheet('monster', baseUrl + mAnims.spritesheet_url + mTimestamp, { frameWidth: 64, frameHeight: 64 });
                         } else {
-                            this.load.spritesheet('monster', baseUrl + mAnims.spritesheet_url, { frameWidth: 64, frameHeight: 64 });
+                            this.load.spritesheet('monster', baseUrl + mAnims.spritesheet_url + `?t=${Date.now()}`, { frameWidth: 64, frameHeight: 64 });
                         }
                     } else {
-                        this.load.image('monster', monsterData.imgUrl);
+                        this.load.image('monster', monsterData.imgUrl + `?t=${Date.now()}`);
                     }
                 }
             },
@@ -237,33 +239,54 @@ export function startInteractivePreview(projectId) {
                 this.physics.world.setBounds(0, 0, 960, 540);
                 const bg = this.add.image(480, 270, 'bg');
                 const scale = Math.max(960 / bg.width, 540 / bg.height);
-                bg.setScale(scale);
+                bg.setScale(scale).setDepth(-10); // 确保背景在地板下
 
                 this.createUI = (owner, name, color) => {
                     owner.health = 100;
                     owner.maxHealth = 100;
-                    owner.nameText = this.add.text(owner.x, owner.y - 60, name, {
+
+                    // 动态计算头顶位置：底部坐标 - (显示高度 * 重心比例)
+                    const topY = owner.y - (owner.displayHeight * owner.originY);
+
+                    owner.nameText = this.add.text(owner.x, topY - 25, name, {
                         fontSize: '14px', fill: '#fff', stroke: '#000', strokeThickness: 3
                     }).setOrigin(0.5);
-                    owner.hpBarBg = this.add.rectangle(owner.x, owner.y - 45, 50, 5, 0x000000);
-                    owner.hpBar = this.add.rectangle(owner.x - 25, owner.y - 45, 50, 5, color).setOrigin(0, 0.5);
+                    owner.hpBarBg = this.add.rectangle(owner.x, topY - 10, 50, 5, 0x000000);
+                    owner.hpBar = this.add.rectangle(owner.x - 25, topY - 10, 50, 5, color).setOrigin(0, 0.5);
                 };
 
                 this.updateUI = (owner) => {
                     if (!owner || !owner.active || !owner.nameText) return;
-                    owner.nameText.setPosition(owner.x, owner.y - 60);
-                    owner.hpBarBg.setPosition(owner.x, owner.y - 45);
-                    owner.hpBar.setPosition(owner.x - 25, owner.y - 45);
+                    const topY = owner.y - (owner.displayHeight * owner.originY);
+
+                    owner.nameText.setPosition(owner.x, topY - 25);
+                    owner.hpBarBg.setPosition(owner.x, topY - 10);
+                    owner.hpBar.setPosition(owner.x - 25, topY - 10);
                     const hpPercent = Math.max(0, owner.health / owner.maxHealth);
                     owner.hpBar.width = 50 * hpPercent;
                 };
 
                 this.player = this.physics.add.sprite(200, 270, 'player');
                 this.player.setCollideWorldBounds(true);
+                this.player.setDepth(2); // 玩家在中间层
 
-                // 动态计算缩放比例：将原始尺寸缩放到 64px 基础大小，再乘以 1.2 倍
-                const pFrameSize = (charData.animation?.types?.idle?.frameSize || 64);
-                this.player.setScale((64 / pFrameSize) * 1.2);
+                // --- 智能内容缩放 (Smart Zoom) ---
+                const idleInfo = charData.animation?.types?.idle;
+                const pFrameSize = (idleInfo?.frameSize || 64);
+                let pScale = (64 / pFrameSize) * 1.2;
+
+                if (idleInfo?.content_bbox) {
+                    const [left, top, right, bottom] = idleInfo.content_bbox;
+                    const contentH = bottom - top;
+                    const fillRatio = contentH / pFrameSize;
+
+                    // 如果内容占比小于 80%，则进行智能放大补偿，让主体更突出
+                    if (fillRatio < 0.8 && fillRatio > 0.1) {
+                        pScale *= (0.85 / fillRatio);
+                    }
+                }
+                this.player.setScale(pScale);
+                this.player.setOrigin(0.5, 0.8); // 修正重心，适合大部分人形角色
 
                 this.createUI(this.player, charData.name, 0x00ff00);
 
@@ -305,8 +328,20 @@ export function startInteractivePreview(projectId) {
                     this.monster = this.physics.add.sprite(700, 270, 'monster');
                     this.monster.setCollideWorldBounds(true);
 
-                    const mFrameSize = (monsterData.animation?.types?.idle?.frameSize || 64);
-                    this.monster.setScale((64 / mFrameSize) * 1.2).setTint(0xffcccc);
+                    const mIdleInfo = monsterData.animation?.types?.idle;
+                    const mFrameSize = (mIdleInfo?.frameSize || 64);
+                    let mScale = (64 / mFrameSize) * 1.2;
+
+                    if (mIdleInfo?.content_bbox) {
+                        const [mL, mT, mR, mB] = mIdleInfo.content_bbox;
+                        const mRatio = (mB - mT) / mFrameSize;
+                        if (mRatio < 0.8 && mRatio > 0.1) {
+                            mScale *= (0.85 / mRatio);
+                        }
+                    }
+
+                    this.monster.setScale(mScale).setTint(0xffcccc);
+                    this.monster.setOrigin(0.5, 0.8);
 
                     this.createUI(this.monster, monsterData.name + " (Monster)", 0xff0000);
 
@@ -340,11 +375,128 @@ export function startInteractivePreview(projectId) {
                     A: Phaser.Input.Keyboard.KeyCodes.A,
                     S: Phaser.Input.Keyboard.KeyCodes.S,
                     D: Phaser.Input.Keyboard.KeyCodes.D,
+                    R: Phaser.Input.Keyboard.KeyCodes.R,
                     SPACE: Phaser.Input.Keyboard.KeyCodes.SPACE
                 });
 
+                // --- 实现 R 键华丽大招：分身序列归宗 ---
+                const ULTIMATE_COLORS = [0x00ffff, 0xff00ff, 0xffff00, 0x00ff00, 0xff0000, 0xffffff];
+
+                this.input.keyboard.on('keydown-R', () => {
+                    if (this.isUltimating) return;
+                    if (!this.monster || !this.monster.active) return;
+
+                    this.isUltimating = true;
+                    this.player.setTint(0x00ffff).setAlpha(0.6); // 玩家虚化蓄力
+
+                    const cloneCount = 6;
+
+                    // 1. 产生分身并向四周散开
+                    for (let i = 0; i < cloneCount; i++) {
+                        const angle = (i / cloneCount) * Math.PI * 2;
+                        const dist = 120;
+                        const ghost = this.add.sprite(this.player.x, this.player.y, this.player.texture.key).setDepth(3);
+                        ghost.setFrame(this.player.frame.name).setAlpha(0).setTint(ULTIMATE_COLORS[i]).setScale(this.player.scaleX);
+
+                        // 阶段一：散开
+                        this.tweens.add({
+                            targets: ghost,
+                            alpha: 0.8,
+                            x: this.player.x + Math.cos(angle) * dist,
+                            y: this.player.y + Math.sin(angle) * dist,
+                            duration: 400,
+                            ease: 'Back.easeOut',
+                            onComplete: () => {
+                                // 阶段二：按照间隔序列冲锋
+                                this.time.delayedCall(i * 180 + 300, () => {
+                                    if (!this.monster.active || !ghost.active) return ghost.destroy();
+
+                                    // 启动流光拖尾
+                                    const trailEvent = this.time.addEvent({
+                                        delay: 20,
+                                        callback: () => {
+                                            if (!ghost.active) return;
+                                            const t = this.add.sprite(ghost.x, ghost.y, ghost.texture.key).setDepth(2);
+                                            t.setFrame(ghost.frame.name).setTint(ghost.tintTopLeft).setAlpha(0.4).setScale(ghost.scaleX);
+                                            this.tweens.add({ targets: t, alpha: 0, scale: 0.3, duration: 150, onComplete: () => t.destroy() });
+                                        },
+                                        loop: true
+                                    });
+
+                                    this.tweens.add({
+                                        targets: ghost,
+                                        x: this.monster.x,
+                                        y: this.monster.y,
+                                        duration: 180,
+                                        ease: 'Cubic.easeIn',
+                                        onComplete: () => {
+                                            trailEvent.remove();
+                                            ghost.destroy();
+                                            this.triggerStepImpact(i, cloneCount);
+                                        }
+                                    });
+                                });
+                            }
+                        });
+                    }
+                });
+
+                // 大招撞击处理函数
+                this.triggerStepImpact = (index, total) => {
+                    this.cameras.main.shake(120, 0.008);
+                    this.monster.setTint(0xffffff);
+                    this.time.delayedCall(80, () => this.monster.setTint(0xffcccc));
+
+                    if (this.monster && this.monster.active) {
+                        const dirX = this.monster.x > this.player.x ? 1 : -1;
+
+                        this.tweens.add({
+                            targets: this.monster,
+                            x: this.monster.x + 20 * dirX,
+                            y: this.monster.y - 12,
+                            duration: 80,
+                            yoyo: true,
+                            ease: 'Back.easeOut'
+                        });
+
+                        if (index === total - 1) {
+                            this.triggerFinalImpact();
+                        }
+                    }
+                };
+
+                // 大招终结大爆发
+                this.triggerFinalImpact = () => {
+                    this.cameras.main.shake(600, 0.035);
+                    this.isUltimating = false;
+                    this.player.clearTint().setAlpha(1);
+
+                    if (this.monster && this.monster.active) {
+                        this.monster.health -= 65;
+                        this.monster.setTint(0xff0000);
+
+                        const kDirX = this.monster.x > this.player.x ? 1 : -1;
+                        this.tweens.add({
+                            targets: this.monster,
+                            x: this.monster.x + (300 * kDirX),
+                            y: this.monster.y - 250,
+                            angle: 1440 * kDirX,
+                            duration: 1200,
+                            ease: 'Expo.easeOut',
+                            onComplete: () => {
+                                this.monster.setAngle(0).setTint(0xffcccc);
+                                if (this.monster.health <= 0) {
+                                    this.monster.health = 100;
+                                    this.monster.setPosition(Phaser.Math.Between(100, 860), Phaser.Math.Between(100, 440));
+                                }
+                            }
+                        });
+                    }
+                };
+
                 // 统一监听空格键
                 this.input.keyboard.on('keydown-SPACE', () => {
+                    if (this.isUltimating) return; // 大招期间不能普通攻击
                     // 只有当玩家没在攻击动画中时，才触发攻击
                     const canAttack = !this.anims.exists('p_attack') ||
                         (this.player.anims.currentAnim?.key !== 'p_attack') ||
@@ -377,7 +529,7 @@ export function startInteractivePreview(projectId) {
                 this.minimap.ignore([this.player.nameText, this.player.hpBarBg, this.player.hpBar]);
                 if (this.monster) this.minimap.ignore([this.monster.nameText, this.monster.hpBarBg, this.monster.hpBar]);
 
-                this.add.text(15, 15, 'WASD/方向键 移动 | 空格 攻击', {
+                this.add.text(15, 15, 'WASD/方向键 移动 | 空格 攻击 | R 大招', {
                     fontSize: '18px',
                     fill: '#fff',
                     backgroundColor: 'rgba(0,0,0,0.6)',
@@ -394,7 +546,7 @@ export function startInteractivePreview(projectId) {
                     this.player.anims.isPlaying &&
                     this.player.anims.currentAnim?.key === 'p_attack';
 
-                if (!isAttacking) {
+                if (!isAttacking && !this.isUltimating) {
                     if (this.cursors.left.isDown || this.keys.A.isDown) vx = -speed;
                     else if (this.cursors.right.isDown || this.keys.D.isDown) vx = speed;
 
@@ -404,7 +556,32 @@ export function startInteractivePreview(projectId) {
 
                 this.player.setVelocity(vx, vy);
 
-                if (!isAttacking) {
+                // --- 酷炫残影拖行效果 (Motion Trail) ---
+                if (vx !== 0 || vy !== 0 || isAttacking) {
+                    this.trailCounter = (this.trailCounter || 0) + 1;
+                    if (this.trailCounter % 2 === 0) { // 提高频率
+                        const ghost = this.add.sprite(this.player.x, this.player.y, this.player.texture.key);
+                        ghost.setFrame(this.player.frame.name);
+                        ghost.setFlipX(this.player.flipX);
+                        ghost.setScale(this.player.scaleX, this.player.scaleY);
+                        ghost.setOrigin(this.player.originX, this.player.originY);
+                        ghost.setTint(0x00ffff, 0x0088ff, 0x00ffff, 0x0088ff); // 四角渐变色彩
+                        ghost.setAlpha(0.8); // 提高初始透明度
+                        ghost.setDepth(1); // 必须大于背景的 -10，且小于玩家的 2
+
+                        this.tweens.add({
+                            targets: ghost,
+                            alpha: 0,
+                            scaleX: ghost.scaleX * 0.9,
+                            scaleY: ghost.scaleY * 0.9,
+                            duration: 300,
+                            ease: 'Power2',
+                            onComplete: () => ghost.destroy()
+                        });
+                    }
+                }
+
+                if (!isAttacking && !this.isUltimating) {
                     if (vx !== 0 || vy !== 0) {
                         if (this.anims.exists('p_walk') && this.player.anims.currentAnim?.key !== 'p_walk') {
                             this.player.play('p_walk');
