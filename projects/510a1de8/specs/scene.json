@@ -1,0 +1,217 @@
+{
+  "scenes": [
+    {
+      "id": "huaguoshan",
+      "name": "花果山·水帘洞前",
+      "width": 3840,
+      "height": 1080,
+      "layout_description": "横向卷轴式长场景。左侧(0-1200)为生活区，地势平缓布满吊床；中间(1200-2600)为核心地标，包含巨大瀑布和半圆形石台；右侧(2600-3840)为修行区，地势升高，分布悬浮石块和木桩。",
+      "grid_info": {
+        "rows": 9,
+        "cols": 30,
+        "cell_size": 128
+      },
+      "elements": [
+        {
+          "name": "水帘洞瀑布",
+          "type": "building",
+          "rect": {
+            "x": 1920,
+            "y": 540,
+            "w": 800,
+            "h": 1080
+          },
+          "description": "核心建筑，包含动态粒子效果的水帘，是通往内部的入口。"
+        },
+        {
+          "name": "半圆形石台",
+          "type": "platform",
+          "rect": {
+            "x": 1620,
+            "y": 780,
+            "w": 600,
+            "h": 300
+          },
+          "description": "位于瀑布前的核心交互区域。"
+        },
+        {
+          "name": "仙桃树",
+          "type": "tree",
+          "rect": {
+            "x": 300,
+            "y": 680,
+            "w": 200,
+            "h": 400
+          },
+          "description": "巨大的桃树，挂着比猴头还大的粉色桃子，共5棵分布在左侧。"
+        },
+        {
+          "name": "弹跳蘑菇",
+          "type": "platform",
+          "rect": {
+            "x": 1500,
+            "y": 980,
+            "w": 100,
+            "h": 100
+          },
+          "description": "全场景分布的可交互物件，踩上去可提供跳跃增益。"
+        },
+        {
+          "name": "猴王宝座",
+          "type": "rock",
+          "rect": {
+            "x": 600,
+            "y": 800,
+            "w": 300,
+            "h": 200
+          },
+          "description": "巨大的石制宝座，位于生活区核心位置。"
+        },
+        {
+          "name": "紫色藤蔓",
+          "type": "platform",
+          "rect": {
+            "x": 2800,
+            "y": 200,
+            "w": 50,
+            "h": 600
+          },
+          "description": "背景中散落的10根可攀爬藤蔓，用于垂直移动。"
+        }
+      ],
+      "background_color": "#90EE90",
+      "connections": [
+        "donghai_longgong",
+        "nantianmen"
+      ],
+      "bgm_id": "bgm_huaguoshan_joyful"
+    },
+    {
+      "id": "donghai_longgong",
+      "name": "东海龙宫",
+      "width": 1920,
+      "height": 1920,
+      "layout_description": "垂直与水平兼顾的正方形场景。底部(1400-1920)为海床起点；中部(600-1400)为珊瑚迷宫；顶部(0-600)为水晶宫殿区域。",
+      "grid_info": {
+        "rows": 15,
+        "cols": 15,
+        "cell_size": 128
+      },
+      "elements": [
+        {
+          "name": "水晶宫主殿",
+          "type": "building",
+          "rect": {
+            "x": 960,
+            "y": 300,
+            "w": 1100,
+            "h": 600
+          },
+          "description": "半透明材质建筑，内部可见旋转的Q版定海神针。"
+        },
+        {
+          "name": "气泡珊瑚",
+          "type": "platform",
+          "rect": {
+            "x": 200,
+            "y": 1500,
+            "w": 200,
+            "h": 200
+          },
+          "description": "定时喷出气泡，可包裹玩家并使其上升。"
+        },
+        {
+          "name": "张口蚌壳",
+          "type": "rock",
+          "rect": {
+            "x": 1600,
+            "y": 1600,
+            "w": 200,
+            "h": 150
+          },
+          "description": "装饰性交互物，内含珍珠宝箱。"
+        },
+        {
+          "name": "发光海草",
+          "type": "tree",
+          "rect": {
+            "x": 500,
+            "y": 1700,
+            "w": 100,
+            "h": 300
+          },
+          "description": "遍布场景的植被，随水流摆动，具有发光边缘。"
+        }
+      ],
+      "background_color": "#00008B",
+      "connections": [
+        "huaguoshan",
+        "nantianmen"
+      ],
+      "bgm_id": "bgm_longgong_dreamy"
+    },
+    {
+      "id": "nantianmen",
+      "name": "南天门",
+      "width": 2560,
+      "height": 1440,
+      "layout_description": "云端宏伟建筑。前庭(1000-1440)为白色方砖广场；中场(400-1000)为汉白玉阶梯；背景两侧为浮动仙岛，通过彩虹桥连接。",
+      "grid_info": {
+        "rows": 12,
+        "cols": 20,
+        "cell_size": 128
+      },
+      "elements": [
+        {
+          "name": "南天门牌坊",
+          "type": "building",
+          "rect": {
+            "x": 1280,
+            "y": 400,
+            "w": 800,
+            "h": 800
+          },
+          "description": "高大的白玉牌坊，柱上有胖乎乎的金龙缠绕。"
+        },
+        {
+          "name": "萌感石狮子",
+          "type": "rock",
+          "rect": {
+            "x": 1000,
+            "y": 900,
+            "w": 300,
+            "h": 300
+          },
+          "description": "门两侧的装饰物，表情呆滞萌感。"
+        },
+        {
+          "name": "长明灯座",
+          "type": "building",
+          "rect": {
+            "x": 400,
+            "y": 1100,
+            "w": 100,
+            "h": 200
+          },
+          "description": "广场边缘分布的灯座，发出淡金色光晕，共8个。"
+        },
+        {
+          "name": "动态流云层",
+          "type": "water",
+          "rect": {
+            "x": 1280,
+            "y": 1400,
+            "w": 2560,
+            "h": 50
+          },
+          "description": "覆盖地面的薄层云雾，具有流动效果。"
+        }
+      ],
+      "background_color": "#FFFACD",
+      "connections": [
+        "lingxiao_baodian"
+      ],
+      "bgm_id": "bgm_nantianmen_grand"
+    }
+  ]
+}

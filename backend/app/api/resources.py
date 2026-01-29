@@ -8,10 +8,11 @@
 - 资源选择与确认
 """
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, File, UploadFile, Form
 from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
 import os
+import shutil
 import sys
 import asyncio
 
@@ -227,15 +228,41 @@ async def list_variants(project_id: str, resource_type: str, resource_id: str):
             "is_final": True
         })
 
-    # 检查是否存在序列帧动画 (仅限角色)
-    animation = None
+    # 3. 检查是否存在序列帧动画 (仅限角色)
+    animation = {"exists": False, "types": {}}
     if resource_type == "character":
-        anim_path = os.path.join(assets_resource_dir, "animations", "spritesheet.png")
-        if os.path.exists(anim_path):
-            animation = {
-                "spritesheet_url": f"/assets/{project_id}/assets/characters/{resource_id}/animations/spritesheet.png",
-                "exists": True
-            }
+        anim_dir = os.path.join(assets_resource_dir, "animations")
+        if os.path.exists(anim_dir):
+            # 兼容旧的整体式
+            full_path = os.path.join(anim_dir, "spritesheet.png")
+            if os.path.exists(full_path):
+                animation["exists"] = True
+                animation["spritesheet_url"] = f"/assets/{project_id}/assets/characters/{resource_id}/animations/spritesheet.png"
+            
+            # 扫描独立的动作文件 (重点)
+            from PIL import Image
+            for atype in ["idle", "walk", "attack"]:
+                filename = f"anim_{atype}.png"
+                p = os.path.join(anim_dir, filename)
+                if os.path.exists(p):
+                    animation["exists"] = True
+                    # 自动检测帧数
+                    try:
+                        with Image.open(p) as img:
+                            w, h = img.size
+                            # 假设是横向排列。如果 w=h 是单帧，否则 w/h 是帧数
+                            frame_count = max(1, w // h)
+                            animation["types"][atype] = {
+                                "url": f"/assets/{project_id}/assets/characters/{resource_id}/animations/{filename}",
+                                "frames": frame_count,
+                                "frameSize": h  # 记录原始分辨率（单帧宽高）
+                            }
+                    except:
+                        animation["types"][atype] = {
+                            "url": f"/assets/{project_id}/assets/characters/{resource_id}/animations/{filename}",
+                            "frames": 4,
+                            "frameSize": 64
+                        }
     
     return {
         "variants": variants, 
@@ -377,6 +404,47 @@ async def generate_character_animations(project_id: str, request: AnimationReque
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"执行动画脚本异常: {str(e)}")
 
+
+
+@router.post("/{project_id}/upload-animations")
+async def upload_character_animation(
+    project_id: str, 
+    item_id: str = Form(...),
+    anim_type: str = Form("full"), # idle, walk, attack, full
+    file: UploadFile = File(...)
+):
+    """
+    上传特定动作的序列帧 (idle/walk/attack) 或 完整 Spritesheet (full)
+    """
+    # 路径准备
+    projects_dir_abs = os.path.abspath(settings.PROJECTS_DIR)
+    project_path = os.path.join(projects_dir_abs, project_id)
+    
+    # 确定保存路径
+    anim_dir = os.path.join(project_path, "assets", "characters", item_id, "animations")
+    os.makedirs(anim_dir, exist_ok=True)
+    
+    # 确定文件名
+    if anim_type == "full":
+        filename = "spritesheet.png"
+    else:
+        filename = f"anim_{anim_type}.png"
+        
+    output_path = os.path.join(anim_dir, filename)
+    
+    # 保存上传的文件
+    try:
+        with open(output_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+            
+        return {
+            "success": True,
+            "anim_type": anim_type,
+            "url": f"/assets/{project_id}/assets/characters/{item_id}/animations/{filename}",
+            "message": f"{anim_type} 动画上传成功"
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"文件保存失败: {str(e)}")
 
 
 @router.delete("/{project_id}/{resource_type}/{resource_id}/variants/{variant_id}")
@@ -548,13 +616,37 @@ async def generate_item_resource(project_id: str, request: GenerateItemRequest):
     script_filename = f"{request.item_id}_generator.py"
     main_script_path = os.path.join(scripts_dir, script_filename)
     
-    # 如果请求强制重新生成脚本，先删除旧脚本
-    if request.force_regenerate_script and os.path.exists(main_script_path):
+    # 1. 无论哪种生成，都干掉已选定的正式资源，让界面退回到未选定状态
+    final_assets_dir = os.path.join(project_path, "assets", resource_config["folder"], request.item_id)
+    final_filename = f"{request.item_id}{resource_config['extension']}"
+    final_file_path = os.path.join(final_assets_dir, final_filename)
+    
+    if os.path.exists(final_file_path):
         try:
-            os.remove(main_script_path)
-            print(f"已删除旧脚本: {main_script_path}")
+            os.remove(final_file_path)
+            # 如果是角色，顺便把关联的动画也干掉
+            if resource_type == "character":
+                import shutil
+                shutil.rmtree(os.path.join(final_assets_dir, "animations"), ignore_errors=True)
         except Exception as e:
-            print(f"删除旧脚本失败: {e}")
+            print(f"清理正式资源失败: {e}")
+
+    # 【核心修复】同时也干掉 temp 目录下的旧变体和旧选中状态
+    if os.path.exists(variants_dir):
+        try:
+            import shutil
+            shutil.rmtree(variants_dir)
+            os.makedirs(variants_dir, exist_ok=True)
+        except Exception as e:
+            print(f"清理临时变体目录失败: {e}")
+
+    # 2. 如果请求强制重新生成脚本，则删除旧脚本
+    if request.force_regenerate_script:
+        if os.path.exists(main_script_path):
+            try:
+                os.remove(main_script_path)
+            except Exception as e:
+                print(f"删除旧脚本失败: {e}")
     
     # 获取项目风格
     project_meta_path = os.path.join(project_path, "project.json")

@@ -194,5 +194,21 @@ export const api = {
             method: 'DELETE'
         });
         return response.json();
+    },
+
+    /**
+     * 上传角色序列帧动画
+     */
+    async uploadAnimations(projectId, itemId, file, animType = 'full') {
+        const formData = new FormData();
+        formData.append('item_id', itemId);
+        formData.append('anim_type', animType);
+        formData.append('file', file);
+
+        const response = await fetch(`${API_BASE}/resources/${projectId}/upload-animations`, {
+            method: 'POST',
+            body: formData
+        });
+        return response.json();
     }
 };

@@ -1,0 +1,11 @@
+{
+  "variant_id": "change_v2_5de4",
+  "file_path": "D:\\mafei\\vscode-workspace\\ai-engine\\projects\\510a1de8\\temp\\characters\\change\\variants\\change_v2_5de4.png",
+  "script_path": "D:\\mafei\\vscode-workspace\\ai-engine\\projects\\510a1de8\\temp\\characters\\change\\scripts\\change_generator.py",
+  "seed": 2,
+  "is_selected": false,
+  "success": false,
+  "error": "基础图片未生成，无法风格化",
+  "generated_at": "2026-01-29T22:13:54.648457",
+  "selected": false
+}

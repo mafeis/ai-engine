@@ -1,0 +1,156 @@
+{
+  "game_metadata": {
+    "title": "西游世界",
+    "genre": "动作塔防 (Action Tower Defense)",
+    "core_concept": "不仅是坐镇后方的指挥官，更是冲锋陷阵的齐天大圣。",
+    "base_location": "花果山"
+  },
+  "gameplay_loop": [
+    {
+      "phase": "整备阶段 (Preparation)",
+      "resource_consumed": "灵气",
+      "actions": "在地图上布置化身塔",
+      "example_units": [
+        "小猴精",
+        "石敢当",
+        "土地公"
+      ]
+    },
+    {
+      "phase": "防御阶段 (Wave Defense)",
+      "enemies": [
+        "天兵天将",
+        "各路妖魔"
+      ],
+      "player_role": "操控“马喽”亲自上阵，配合塔进行连招攻击"
+    },
+    {
+      "phase": "结算阶段 (Reward)",
+      "rewards": [
+        "仙丹",
+        "功德"
+      ]
+    },
+    {
+      "phase": "成长阶段 (Progression)",
+      "activities": [
+        "升级技能树",
+        "解锁新塔",
+        "强化金箍棒"
+      ]
+    }
+  ],
+  "control_schemes": [
+    {
+      "platform": "键盘/鼠标",
+      "movement": "WASD",
+      "basic_attack_interact": "鼠标左键 (轻攻击) / F (交互)",
+      "skills_selection": "Q, E, R (技能) / 1-5 (选塔)",
+      "view_camera": "鼠标移动 / 滚轮缩放"
+    },
+    {
+      "platform": "触屏",
+      "movement": "左侧虚拟摇杆",
+      "basic_attack_interact": "右侧大按钮 (攻击)",
+      "skills_selection": "环绕式技能按键",
+      "view_camera": "点击空地/拖拽塔防图标"
+    },
+    {
+      "platform": "手柄",
+      "movement": "左摇杆",
+      "basic_attack_interact": "X (轻) / Y (重)",
+      "skills_selection": "LB, RB, RT",
+      "view_camera": "右摇杆"
+    }
+  ],
+  "combat_system": {
+    "basic_mechanics": {
+      "attack": "轻、重攻击组合，可触发“千钧棒”连招",
+      "parry": "在攻击瞬间格挡可触发“反弹”远程飞行物",
+      "dodge": "瞬间无敌帧，成功后下一次攻击附带“定身”效果"
+    },
+    "qi_system": {
+      "resource_name": "气势槽",
+      "accumulation": "通过连击积攒",
+      "passive_buff": "气势越高，场上所有塔的攻击频率提升",
+      "ultimate_skill": "大闹天宫 (全屏清场)"
+    },
+    "tower_synergy": [
+      {
+        "type": "共鸣",
+        "description": "玩家在塔附近战斗时，该塔获得增益"
+      },
+      {
+        "type": "合击",
+        "description": "玩家可用金箍棒击飞特定塔（如火德星君塔）的子弹，转化为定向流星攻击"
+      }
+    ]
+  },
+  "progression_system": {
+    "leveling": {
+      "cultivation_level": "局内等级，每级提供Roguelike随机临时天赋",
+      "account_level": "永久提升马喽基础属性"
+    },
+    "unlockables": {
+      "towers": [
+        {
+          "name": "投石小猴",
+          "type": "单体",
+          "tier": "初期"
+        },
+        {
+          "name": "桃木桩",
+          "type": "减速",
+          "tier": "初期"
+        },
+        {
+          "name": "芭蕉扇",
+          "type": "群体推退",
+          "tier": "中期"
+        },
+        {
+          "name": "如意金钱豹",
+          "type": "资源获取",
+          "tier": "中期"
+        }
+      ],
+      "maps": [
+        "花果山",
+        "天庭",
+        "龙宫",
+        "狮驼岭"
+      ]
+    }
+  },
+  "difficulty_curve": [
+    {
+      "stage": "第一阶段 (教学期)",
+      "features": "单一路径，普通天兵，强调基础操作"
+    },
+    {
+      "stage": "第二阶段 (成长期)",
+      "features": "引入飞行敌人（需防空）和重甲敌人（需重击破甲）"
+    },
+    {
+      "stage": "第三阶段 (挑战期)",
+      "features": "多路径进攻，精英怪会主动破坏塔，强制前线救援"
+    },
+    {
+      "stage": "第四阶段 (巅峰期)",
+      "features": "Boss战，大范围技能，高强度格挡与闪避对决"
+    }
+  ],
+  "numerical_balance": {
+    "damage_ratio": {
+      "player": 0.4,
+      "towers": 0.6
+    },
+    "resource_gain": "击杀奖励 + 随时间自然增长",
+    "cooldowns": {
+      "basic_skills": "5-10s",
+      "ultimate": "60-90s"
+    },
+    "survivability": "玩家拥有自动回血机制",
+    "upgrade_strategy": "升级收益 > 铺设新塔收益"
+  }
+}

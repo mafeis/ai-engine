@@ -1,0 +1,128 @@
+{
+  "items": [
+    {
+      "id": "wpn_001",
+      "name": "新手小木棍",
+      "category": "weapon",
+      "appearance": "一根平滑的浅褐色木棍，顶端系着一片翠绿的嫩叶。Q版比例，木纹清晰，质感像光滑的打磨木材，带有可爱的卡通高光。",
+      "rarity": "common",
+      "effects": [
+        {
+          "type": "damage",
+          "value": 5
+        }
+      ],
+      "price": 500,
+      "drop_rate": 0.6
+    },
+    {
+      "id": "wpn_002",
+      "name": "如意伸缩棒",
+      "category": "weapon",
+      "appearance": "经典的红黄配色金属长棍，两端套着闪亮的金色圆环。表面刻有流动的祥云纹路，棍身周围环绕着半透明的金色震动波纹，极具动感。",
+      "rarity": "rare",
+      "effects": [
+        {
+          "type": "buff",
+          "value": 1
+        }
+      ],
+      "price": 10000,
+      "drop_rate": 0.1
+    },
+    {
+      "id": "wpn_003",
+      "name": "芭蕉扇(小)",
+      "category": "weapon",
+      "appearance": "一柄巨大的翠绿色芭蕉叶，叶脉呈亮金色，边缘有可爱的锯齿。扇柄包裹着红色的丝绸，挥舞时会散发绿色的小旋风和树叶粒子。",
+      "rarity": "epic",
+      "effects": [
+        {
+          "type": "buff",
+          "value": 1
+        }
+      ],
+      "price": 0,
+      "drop_rate": 0.04
+    },
+    {
+      "id": "arm_001",
+      "name": "虎皮小肚兜",
+      "category": "armor",
+      "appearance": "一件带有橘色和黑色条纹的虎皮质感围裙，边缘有白色的绒毛球。剪裁圆润，系带是粗糙的麻绳，非常适合Q版小猴子穿着。",
+      "rarity": "common",
+      "effects": [
+        {
+          "type": "buff",
+          "value": 3
+        }
+      ],
+      "price": 800,
+      "drop_rate": 0.6
+    },
+    {
+      "id": "arm_002",
+      "name": "凤翅紫金冠",
+      "category": "armor",
+      "appearance": "华丽的金色头冠，顶端插着两根极长的、弯曲的紫色雉鸡翎。翎毛顶端微微发光，头冠中心镶嵌着一颗巨大的红色宝石，闪烁着炫目星光。",
+      "rarity": "legendary",
+      "effects": [
+        {
+          "type": "buff",
+          "value": 15
+        }
+      ],
+      "price": 0,
+      "drop_rate": 0.01
+    },
+    {
+      "id": "arm_003",
+      "name": "藕丝步云履",
+      "category": "armor",
+      "appearance": "一双青白色的布鞋，鞋尖向上翘起，形成云朵的形状。鞋跟处不断冒出小巧的白色Q版云雾，仿佛踩在云端。",
+      "rarity": "epic",
+      "effects": [
+        {
+          "type": "buff",
+          "value": 30
+        }
+      ],
+      "price": 0,
+      "drop_rate": 0.04
+    },
+    {
+      "id": "con_001",
+      "name": "多汁水蜜桃",
+      "category": "consumable",
+      "appearance": "一颗极其饱满、白里透红的仙桃。表皮有一层细细的绒毛感，顶端有一片绿叶，周围环绕着亮晶晶的各种水果香气粒子。",
+      "rarity": "common",
+      "effects": [
+        {
+          "type": "heal",
+          "value": 20
+        }
+      ],
+      "price": 100,
+      "drop_rate": 0.6
+    },
+    {
+      "id": "con_002",
+      "name": "九转金丹",
+      "category": "consumable",
+      "appearance": "一颗浑圆的金色丹药，悬浮在空中。丹药表面有复杂的红色螺旋纹路，散发着神圣的金光 and 淡淡的白色烟雾。",
+      "rarity": "epic",
+      "effects": [
+        {
+          "type": "heal",
+          "value": 100
+        },
+        {
+          "type": "buff",
+          "value": 3
+        }
+      ],
+      "price": 0,
+      "drop_rate": 0.04
+    }
+  ]
+}

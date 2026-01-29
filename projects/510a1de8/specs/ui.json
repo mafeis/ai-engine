@@ -1,0 +1,275 @@
+{
+  "document_info": {
+    "title": "《西游世界》UI 视觉设计规范文档",
+    "version": "1.0",
+    "style_tags": [
+      "Q版卡通",
+      "东方幻想",
+      "活泼明快"
+    ]
+  },
+  "style_definition": {
+    "core_keywords": [
+      "仙气十足",
+      "圆润可爱",
+      "国潮Q版",
+      "色彩明快"
+    ],
+    "design_concept": "结合中国传统艺术元素（如祥云、如意、莲花、卷轴）与现代Q版游戏的圆润感。UI 边缘避免尖锐棱角，多采用圆角和厚实的轮廓线。",
+    "texture_performance": "采用高饱和度的色块，辅以柔和的内发光和微弱的渐变，模拟“剔透玉石”或“Q弹果冻”的质感。"
+  },
+  "color_palette": {
+    "primary_colors": [
+      {
+        "name": "神圣金",
+        "hex": "#FFD700",
+        "usage": "重要边框、标题高亮"
+      },
+      {
+        "name": "朱砂红",
+        "hex": "#FF4D4D",
+        "usage": "生命值、重要按钮、节日元素"
+      }
+    ],
+    "secondary_colors": [
+      {
+        "name": "翡翠绿",
+        "hex": "#2ECC71",
+        "usage": "经验条、升级提示、自然元素"
+      },
+      {
+        "name": "琉璃蓝",
+        "hex": "#3498DB",
+        "usage": "法力值、水系技能、系统背景"
+      }
+    ],
+    "background_colors": [
+      {
+        "name": "宣纸米白",
+        "hex": "#FDF5E6",
+        "usage": "背景底纹"
+      },
+      {
+        "name": "沉香色",
+        "hex": "#8B4513",
+        "usage": "木纹背景底纹"
+      }
+    ]
+  },
+  "typography": {
+    "title": {
+      "font_family": "华康圆体 / 方正喵呜体",
+      "features": "书法韵味、圆润、金色描边、外发光"
+    },
+    "body": {
+      "font_family": "思源黑体 Rounded",
+      "features": "简洁、高可读性"
+    }
+  },
+  "interfaces": [
+    {
+      "name": "主菜单 (Main Menu)",
+      "layout": "居中布局",
+      "background": "动态“花果山”或“天庭”Q版全景",
+      "elements": [
+        {
+          "name": "游戏 Logo",
+          "description": "位于上方中央，金灿灿云朵字体，环绕如意金箍棒"
+        },
+        {
+          "name": "选项按钮",
+          "shape": "木质牌匾",
+          "items": [
+            "踏上旅程",
+            "宝库（商店）",
+            "修行（设置）"
+          ]
+        },
+        {
+          "name": "装饰物",
+          "description": "两侧漂浮祥云，Q版仙鹤飞行"
+        }
+      ]
+    },
+    {
+      "name": "HUD (抬头显示)",
+      "layout": "环绕式分布",
+      "elements": [
+        {
+          "name": "角色头像框",
+          "position": "左上角",
+          "style": "圆形玉石边框"
+        },
+        {
+          "name": "生命值条",
+          "style": "红绸带，金色流光",
+          "color": "#FF4D4D"
+        },
+        {
+          "name": "法力值条",
+          "style": "半透明蓝色琉璃管，气泡上升感",
+          "color": "#3498DB"
+        },
+        {
+          "name": "技能栏",
+          "position": "底部中央",
+          "slots": 5,
+          "style": "莲花瓣形状边框，大招位带火焰环绕"
+        },
+        {
+          "name": "小地图",
+          "position": "右上角",
+          "style": "八卦阵盘边框，指南针指针"
+        },
+        {
+          "name": "任务追踪",
+          "position": "左侧",
+          "style": "半展开小卷轴，边缘轻微磨损"
+        }
+      ]
+    },
+    {
+      "name": "背包界面 (Backpack)",
+      "layout": "左右结构",
+      "elements": [
+        {
+          "name": "背景底板",
+          "style": "深色檀木箱子内部质感"
+        },
+        {
+          "name": "物品格",
+          "grid": "6x5",
+          "style": "微凹方形玉石槽"
+        },
+        {
+          "name": "分类页签",
+          "icons": [
+            "丹药（葫芦）",
+            "装备（铠甲）",
+            "杂物（包裹）"
+          ]
+        },
+        {
+          "name": "详情框",
+          "style": "泛黄宣纸背景，墨黑色文字"
+        }
+      ]
+    },
+    {
+      "name": "角色信息界面 (Character Info)",
+      "layout": "居中大窗口",
+      "elements": [
+        {
+          "name": "3D 模型展示",
+          "description": "Q版角色踩着转动祥云"
+        },
+        {
+          "name": "装备位",
+          "items": [
+            "武器",
+            "头盔",
+            "衣服",
+            "鞋子",
+            "饰品"
+          ]
+        },
+        {
+          "name": "属性面板",
+          "icons": {
+            "力量": "拳头",
+            "仙法": "拂尘",
+            "防御": "盾牌"
+          }
+        }
+      ]
+    },
+    {
+      "name": "设置界面 (Settings)",
+      "layout": "悬浮弹窗",
+      "elements": [
+        {
+          "name": "滑动条",
+          "track": "细长金箍棒",
+          "thumb": "圆滚滚蟠桃"
+        },
+        {
+          "name": "开关按钮",
+          "on_state": "亮起的八卦灯盏",
+          "off_state": "熄灭的灰色状态"
+        }
+      ]
+    },
+    {
+      "name": "对话界面 (Dialogue)",
+      "layout": "底部横条",
+      "elements": [
+        {
+          "name": "对话框",
+          "style": "完全展开的长卷轴，青铜色轴柄"
+        },
+        {
+          "name": "立绘",
+          "position": "左侧",
+          "animation": "轻微呼吸动画"
+        },
+        {
+          "name": "名字标签",
+          "style": "红色流苏小标签"
+        }
+      ]
+    }
+  ],
+  "interaction_specs": {
+    "button_states": {
+      "normal": {
+        "effect": "饱满3D效果，柔和高光"
+      },
+      "pressed": {
+        "scale": 0.95,
+        "color_shift": "变深",
+        "audio": "叮（玉石碰撞声）"
+      },
+      "disabled": {
+        "style": "石化灰",
+        "texture": "表面裂纹"
+      }
+    },
+    "icon_specs": {
+      "containers": [
+        "小灯笼",
+        "仙丹"
+      ],
+      "outline": "2px 深褐色"
+    }
+  },
+  "ai_generation_prompts": [
+    {
+      "element": "主按钮",
+      "prompt": "一个圆润的Q版游戏按钮，木质纹理底板，边缘镶嵌金色祥云花纹，中间有醒目的白色标题文字，整体呈现出 3D 充气感，色彩鲜艳。"
+    },
+    {
+      "element": "血条容器",
+      "prompt": "一个横向的半透明玉石管，两端装饰着红色的流苏和金色的如意头，内部填充着发光的红色液体，液体中有微小的气泡。"
+    },
+    {
+      "element": "技能图标框",
+      "prompt": "一个盛开的莲花底座，花瓣为粉白渐变，中心是圆形的透明凹槽，周围环绕着淡淡的仙气烟雾。"
+    },
+    {
+      "element": "对话卷轴",
+      "prompt": "一张平铺的中国传统长卷轴，纸张质感温润如宣纸，边缘有精致的金箔包边，轴头是青绿色的古玉材质。"
+    },
+    {
+      "element": "任务图标",
+      "prompt": "一个可爱的小布袋，扎着红绳，袋子上绣着一个“令”字，整体风格是圆滚滚的卡通化表现。"
+    },
+    {
+      "element": "通用弹窗",
+      "prompt": "一个带有圆角的深色檀木边框，背景是半透明的云纹图案，顶部中央有一个醒目的如意结作为装饰。"
+    }
+  ],
+  "design_suggestions": [
+    "为所有 UI 交互添加“祥云散开”转场动画",
+    "为所有 UI 交互添加“金光闪烁”转场动画"
+  ]
+}

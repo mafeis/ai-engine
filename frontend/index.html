@@ -13,6 +13,8 @@
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11"></script>
     <!-- 游戏引擎 -->
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+    <!-- JSON Viewer -->
+    <script src="https://cdn.jsdelivr.net/npm/json-formatter-js@2.3.4/dist/json-formatter.umd.min.js"></script>
 </head>
 
 <body>
@@ -111,6 +113,41 @@
                     <textarea id="document-editor" class="document-editor hidden"></textarea>
                 </div>
 
+                <!-- 规格查看面板 -->
+                <div id="spec-panel" class="panel hidden">
+                    <div class="document-header">
+                        <button class="btn btn-secondary" id="back-from-spec">← 返回项目</button>
+                        <h2 id="spec-title">规格预览</h2>
+                        <div class="document-actions">
+                            <button class="btn btn-primary" id="copy-spec-btn">📋 复制 JSON</button>
+                        </div>
+                    </div>
+
+                    <!-- 可视化摘要区域 -->
+                    <div id="spec-visual-summary" class="spec-visual-summary">
+                        <!-- 由 JS 动态填充 -->
+                    </div>
+
+                    <div class="spec-json-header">
+                        <h3>原始 JSON 数据</h3>
+                        <small>用于程序生成的结构化数据</small>
+                    </div>
+
+                    <div id="spec-content" class="spec-viewer-container"
+                        style="background: var(--bg-dark); padding: 24px; border-radius: 8px; overflow: auto; font-family: 'JetBrains Mono', monospace;">
+                        <!-- JSON Viewer 内容 -->
+                    </div>
+                </div>
+
+                <!-- 游戏预览全屏面板 (可选，如果以后需要全屏预览) -->
+                <div id="preview-panel" class="panel hidden">
+                    <div class="document-header">
+                        <button class="btn btn-secondary" id="back-from-preview">← 返回项目</button>
+                        <h2>全屏预览</h2>
+                    </div>
+                    <div id="game-container-fullscreen"></div>
+                </div>
+
                 <!-- 资源管理面板 -->
                 <div id="resource-panel" class="panel hidden">
                     <div class="resource-header">
@@ -122,36 +159,7 @@
                     </div>
                 </div>
 
-                <div id="preview-panel" class="panel hidden">
-                    <div class="resource-header mb-4">
-                        <button class="btn btn-secondary" onclick="backToProject()">← 返回项目</button>
-                        <h2 id="preview-panel-title" class="ml-4">游戏实时预览</h2>
-                    </div>
-                    <div class="row items-center gap-4 mb-4">
-                        <div class="preview-controls row gap-2">
-                            <select id="preview-scene-select" class="form-select btn-sm">
-                                <option value="">载入场景...</option>
-                            </select>
-                            <select id="preview-character-select" class="form-select btn-sm">
-                                <option value="">载入主角...</option>
-                            </select>
-                            <select id="preview-monster-select" class="form-select btn-sm">
-                                <option value="">载入怪物 (可选)...</option>
-                            </select>
-                            <button class="btn btn-primary btn-sm" id="start-game-btn">🚀 启动预览</button>
-                            <button class="btn btn-danger btn-sm" id="stop-game-btn" style="display:none">⏹
-                                停止</button>
-                        </div>
-                    </div>
-                </div>
 
-                <div id="game-container" class="game-container">
-                    <div class="game-placeholder">
-                        <div class="icon">🎮</div>
-                        <p>请选择场景及角色，点击“启动预览”开始</p>
-                        <small class="muted">支持 WASD 或 方向键控制角色移动</small>
-                    </div>
-                </div>
     </div>
     </section>
     </main>

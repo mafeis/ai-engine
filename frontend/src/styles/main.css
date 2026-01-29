@@ -398,21 +398,83 @@ body {
     margin-top: var(--spacing-lg);
 }
 
-/* ============ 响应式 ============ */
-@media (max-width: 1024px) {
-    .workflow-steps {
-        grid-template-columns: repeat(2, 1fr);
-    }
+/* ============ 规格可视化预览 ============ */
+.spec-visual-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
 }
 
-@media (max-width: 768px) {
-    .sidebar {
-        display: none;
-    }
+.summary-card {
+    background: var(--bg-hover);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
 
-    .workflow-steps {
-        grid-template-columns: 1fr;
-    }
+.summary-card h4 {
+    font-size: 14px;
+    color: var(--primary);
+}
+
+.summary-card p {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.spec-json-header {
+    margin-bottom: var(--spacing-md);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--border);
+}
+
+.spec-json-header h3 {
+    font-size: 16px;
+}
+
+/* ============ 游戏预览控制 ============ */
+.preview-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-lg);
+    background: var(--bg-hover);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+}
+
+.game-container {
+    margin-top: var(--spacing-lg);
+    background: #000;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.game-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    color: var(--text-muted);
+}
+
+.game-placeholder.hidden {
+    display: none;
 }
 
 /* ============ 项目详情 ============ */
@@ -447,6 +509,43 @@ body {
     font-size: 18px;
     margin-bottom: var(--spacing-md);
     color: var(--text-primary);
+}
+
+/* ============ 项目 Tab 导航 ============ */
+.project-tabs {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--border);
+}
+
+.tab-item {
+    padding: var(--spacing-sm) var(--spacing-md);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    margin-bottom: -1px;
+}
+
+.tab-item:hover {
+    color: var(--text-primary);
+}
+
+.tab-item.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.tab-pane {
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.tab-pane.active {
+    display: block;
 }
 
 /* ============ 文档网格 ============ */
@@ -1166,5 +1265,11 @@ body {
 
 .preview-controls {
     display: flex;
-    align-items: center;
-}
+
+    /* ============ JSON Viewer Override ============ */
+    .json-formatter-preview-text {
+        display: inline !important;
+        opacity: 0.6;
+        font-style: italic;
+        margin-left: 5px;
+    }

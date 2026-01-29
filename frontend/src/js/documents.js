@@ -112,75 +112,134 @@ export async function renderProjectPanel(project) {
             <span>🎨 ${project.art_style}</span>
             <span>📅 ${new Date(project.created_at).toLocaleDateString()}</span>
         </div>
-        
-        <div class="section">
-            <h2>📝 第一步：设计文档</h2>
-            ${docListHtml}
+
+        <div class="project-tabs">
+            <div class="tab-item active" data-tab="design">📝 设计文档</div>
+            <div class="tab-item" data-tab="specs">📊 规格数据</div>
+            <div class="tab-item" data-tab="assets">🎨 资源生成</div>
+            <div class="tab-item" data-tab="preview">🚀 游戏预览</div>
         </div>
         
-        <div class="section">
-            <h2>📊 第二步：JSON 规格数据</h2>
-            <p class="section-desc">从设计文档中提取结构化的JSON数据，用于资源生成</p>
-            ${specListHtml}
+        <div id="tab-design" class="tab-pane active">
+            <div class="section">
+                <!-- <h2>第一步：设计文档</h2> -->
+                <p class="section-desc">基于 AI 驱动的蓝图构建，生成核心设计文档。</p>
+                ${docListHtml}
+            </div>
         </div>
         
-        <div class="section">
-            <h2>🎨 第三步：生成资源</h2>
-            <p class="section-desc">点击资源类型进入管理面板，查看每个条目的详情并生成候选变体</p>
-            <div class="resource-actions">
-                <div class="resource-type-card clickable" onclick="showResourcePanel('${project.id}', 'character')">
-                    <span class="icon">👤</span>
-                    <span class="label">角色资源</span>
-                    <span class="arrow">→</span>
+        <div id="tab-specs" class="tab-pane">
+            <div class="section">
+                <!-- <h2>第二步：JSON 规格数据</h2> -->
+                <p class="section-desc">从设计文档中提取结构化的JSON数据，用于资源生成</p>
+                ${specListHtml}
+            </div>
+        </div>
+        
+        <div id="tab-assets" class="tab-pane">
+            <div class="section">
+                <!-- <h2>第三步：生成资源</h2> -->
+                <p class="section-desc">点击资源类型进入管理面板，查看每个条目的详情并生成候选变体</p>
+                <div class="resource-actions">
+                    <div class="resource-type-card clickable" onclick="showResourcePanel('${project.id}', 'character')">
+                        <span class="icon">👤</span>
+                        <span class="label">角色资源</span>
+                        <span class="arrow">→</span>
+                    </div>
+                    <div class="resource-type-card clickable" onclick="showResourcePanel('${project.id}', 'scene')">
+                        <span class="icon">🏞️</span>
+                        <span class="label">场景资源</span>
+                        <span class="arrow">→</span>
+                    </div>
+                    <div class="resource-type-card clickable" onclick="showResourcePanel('${project.id}', 'item')">
+                        <span class="icon">🎒</span>
+                        <span class="label">道具资源</span>
+                        <span class="arrow">→</span>
+                    </div>
+                    <div class="resource-type-card clickable" onclick="showResourcePanel('${project.id}', 'ui')">
+                        <span class="icon">🖥️</span>
+                        <span class="label">UI资源</span>
+                        <span class="arrow">→</span>
+                    </div>
                 </div>
-                <div class="resource-type-card clickable" onclick="showResourcePanel('${project.id}', 'scene')">
-                    <span class="icon">🏞️</span>
-                    <span class="label">场景资源</span>
-                    <span class="arrow">→</span>
+            </div>
+        </div>
+        
+        <div id="tab-preview" class="tab-pane">
+            <div class="section">
+                <!-- <h2>第四步：实时预览</h2> -->
+                <p class="section-desc">在选定的场景中控制角色移动，体验游戏的雏形</p>
+                
+                <div class="preview-controls">
+                    <div class="form-group" style="flex: 1; min-width: 200px; margin-bottom: 0;">
+                        <label>选择场景</label>
+                        <select id="preview-scene-select" class="form-control">
+                            <option value="">加载中...</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex: 1; min-width: 200px; margin-bottom: 0;">
+                        <label>选择主角</label>
+                        <select id="preview-character-select" class="form-control">
+                            <option value="">加载中...</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex: 1; min-width: 200px; margin-bottom: 0;">
+                        <label>选择怪物</label>
+                        <select id="preview-monster-select" class="form-control">
+                            <option value="">加载中...</option>
+                        </select>
+                    </div>
+                    <div class="preview-actions" style="display: flex; align-items: flex-end; gap: 8px;">
+                        <button id="start-game-btn" class="btn btn-primary" onclick="showPreviewPanel('${project.id}')">🎮 启动预览</button>
+                        <button id="stop-game-btn" class="btn btn-secondary" style="display: none;">⏹ 停止</button>
+                    </div>
                 </div>
-                <div class="resource-type-card clickable" onclick="showResourcePanel('${project.id}', 'item')">
-                    <span class="icon">🎒</span>
-                    <span class="label">道具资源</span>
-                    <span class="arrow">→</span>
-                </div>
-                <div class="resource-type-card clickable" onclick="showResourcePanel('${project.id}', 'ui')">
-                    <span class="icon">🖥️</span>
-                    <span class="label">UI资源</span>
-                    <span class="arrow">→</span>
+
+                <div id="game-container" class="game-container">
+                    <div class="game-placeholder">
+                        <span style="font-size: 48px;">🎮</span>
+                        <p>请先在资源管理中为角色和场景选定资源方案</p>
+                        <small>选定后点击“启动预览”开始游戏</small>
+                    </div>
                 </div>
             </div>
         </div>
         
         <div class="section">
-            <h2>🚀 第四步：实时预览</h2>
-            <p class="section-desc">在选定的场景中控制角色移动，体验游戏的雏形</p>
-            <div class="resource-actions">
-                <div class="resource-type-card clickable highlight" onclick="showPreviewPanel('${project.id}')">
-                    <span class="icon">🕹️</span>
-                    <span class="label">启动实时游戏预览</span>
-                    <span class="arrow">→</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>🎮 游戏控制</h2>
-            <div class="game-controls-panel">
-                <button class="btn btn-primary btn-lg" onclick="startGame('${project.id}')">
-                    ▶ 启动预览
+             <div class="danger-zone">
+                <button class="btn btn-danger" onclick="deleteProject('${project.id}')">
+                    🗑️ 删除项目
                 </button>
-                <button class="btn btn-secondary btn-lg" onclick="stopGame('${project.id}')">
-                    ⏹ 停止
-                </button>
             </div>
-        </div>
-        
-        <div class="danger-zone">
-            <button class="btn btn-danger" onclick="deleteProject('${project.id}')">
-                🗑️ 删除项目
-            </button>
         </div>
     `;
+
+
+
+    // 绑定 Tab 切换事件
+    const tabs = projectPanel.querySelectorAll('.tab-item');
+    const panes = projectPanel.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // 移除所有 active 状态
+            tabs.forEach(t => t.classList.remove('active'));
+            panes.forEach(p => p.classList.remove('active'));
+
+            // 激活当前 Tab
+            tab.classList.add('active');
+            const targetId = `tab-${tab.dataset.tab}`;
+            const targetPane = projectPanel.querySelector(`#${targetId}`);
+            if (targetPane) {
+                targetPane.classList.add('active');
+            }
+
+            // 增强：如果是预览标签，则自动尝试加载下拉数据
+            if (tab.dataset.tab === 'preview' && typeof window.initPreviewTab === 'function') {
+                window.initPreviewTab(project.id);
+            }
+        });
+    });
 }
 
 /**
@@ -342,30 +401,74 @@ export async function extractSpec(projectId, docType) {
 }
 
 /**
- * 查看JSON规格内容
+ * 查看JSON规格内容 (全页交互式模式)
  */
 export async function viewSpec(projectId, specType) {
     try {
         const spec = await api.getSpec(projectId, specType);
-        const specJson = JSON.stringify(spec, null, 2);
 
-        // 使用对话框展示
-        const dialog = document.createElement('dialog');
-        dialog.className = 'dialog spec-dialog';
-        dialog.innerHTML = `
-            <h2>${specType} 规格预览</h2>
-            <pre><code class="language-json">${specJson}</code></pre>
-            <div class="dialog-actions">
-                <button class="btn btn-primary" onclick="this.closest('dialog').close(); this.closest('dialog').remove();">关闭</button>
-            </div>
-        `;
-        document.body.appendChild(dialog);
-        dialog.showModal();
+        // 切换面板
+        document.getElementById('project-panel').classList.add('hidden');
+        document.getElementById('spec-panel').classList.remove('hidden');
 
-        // 高亮
-        if (typeof hljs !== 'undefined') {
-            hljs.highlightElement(dialog.querySelector('code'));
+        // 设置标题
+        document.getElementById('spec-title').textContent = `${specType} 规格数据`;
+
+        // 渲染可视化表格 (替换之前的卡片视图)
+        const summaryContainer = document.getElementById('spec-visual-summary');
+
+        // 提取主要数据数组
+        let dataArray = [];
+        if (spec.characters) dataArray = spec.characters;
+        else if (spec.scenes) dataArray = spec.scenes;
+        else if (spec.items) dataArray = spec.items;
+        else if (spec.quests) dataArray = spec.quests;
+        else if (spec.ui_elements) dataArray = spec.ui_elements;
+        else if (spec.elements) dataArray = spec.elements;
+
+        if (Array.isArray(dataArray) && dataArray.length > 0) {
+            summaryContainer.innerHTML = renderSpecTable(dataArray);
+        } else {
+            summaryContainer.innerHTML = '<p class="muted">无法将此规格解析为表格（可能是空数据或格式不匹配）</p>';
         }
+
+        // 渲染 JSON
+        const container = document.getElementById('spec-content');
+        container.innerHTML = ''; // 清空
+
+        if (typeof JSONFormatter !== 'undefined') {
+            const formatter = new JSONFormatter(spec, 3, {
+                hoverPreviewEnabled: true,
+                hoverPreviewArrayCount: 100,
+                hoverPreviewFieldCount: 5,
+                theme: 'dark', // 如果库支持，或者通过 CSS 覆盖
+                animateOpen: true,
+                useToJSON: true
+            });
+            container.appendChild(formatter.render());
+
+            // 手动应用暗色主题样式的微调（如果需要）
+            formatter.render().style.fontSize = '14px';
+        } else {
+            // 降级方案
+            container.innerHTML = `<pre><code>${JSON.stringify(spec, null, 2)}</code></pre>`;
+            if (typeof hljs !== 'undefined') {
+                hljs.highlightElement(container.querySelector('code'));
+            }
+        }
+
+        // 绑定复制按钮
+        const copyBtn = document.getElementById('copy-spec-btn');
+        copyBtn.onclick = () => {
+            navigator.clipboard.writeText(JSON.stringify(spec, null, 2))
+                .then(() => {
+                    const originalText = copyBtn.textContent;
+                    copyBtn.textContent = '✅ 已复制';
+                    setTimeout(() => copyBtn.textContent = originalText, 2000);
+                })
+                .catch(err => console.error('复制失败:', err));
+        };
+
     } catch (error) {
         console.error('查看规格失败:', error);
         alert('查看规格失败: ' + error.message);
@@ -403,4 +506,43 @@ export async function extractSpecFromDoc(projectId, docType) {
         console.error('提取规格失败:', error);
         alert('提取规格失败: ' + error.message);
     }
+}
+/**
+ * 渲染规格数据表格
+ */
+function renderSpecTable(data) {
+    if (!data || data.length === 0) return '';
+
+    // 获取所有可能的列名
+    const keys = Array.from(new Set(data.flatMap(item => Object.keys(item))));
+
+    // 过滤列：保留字符串/数字/布尔值，过滤掉数组和对象
+    const displayKeys = keys.filter(key => {
+        const val = data.find(it => it[key] !== undefined)?.[key];
+        return val !== null && typeof val !== 'object';
+    });
+
+    let html = `<div class="spec-table-container"><table class="spec-table"><thead><tr>`;
+
+    // 生成表头
+    displayKeys.forEach(key => {
+        html += `<th>${key}</th>`;
+    });
+    html += `</tr></thead><tbody>`;
+
+    // 生成行
+    data.forEach(item => {
+        html += `<tr>`;
+        displayKeys.forEach(key => {
+            let val = item[key];
+            if (val === undefined || val === null) val = '-';
+
+            const isLong = String(val).length > 30;
+            html += `<td class="${isLong ? 'cell-long' : ''}">${val}</td>`;
+        });
+        html += `</tr>`;
+    });
+
+    html += `</tbody></table></div>`;
+    return html;
 }

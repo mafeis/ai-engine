@@ -1,0 +1,185 @@
+{
+  "characters": [
+    {
+      "id": "happy_monkey",
+      "name": "小马喽",
+      "type": "protagonist",
+      "appearance": "Chibi style, a cute baby monkey character, large expressive amber eyes, golden-brown fluffy fur, wearing a small tiger-skin loincloth and a red silk scarf. Round face, mischievous smile. Proportions: 2-head tall. Holding a small wooden staff.",
+      "stats": {
+        "hp": 100,
+        "attack": 15,
+        "defense": 10,
+        "speed": 25
+      },
+      "skills": [
+        {
+          "id": "roll",
+          "name": "马喽翻滚",
+          "damage": 0,
+          "cooldown": 2
+        },
+        {
+          "id": "staff_bonk",
+          "name": "如意棒击",
+          "damage": 20,
+          "cooldown": 1
+        },
+        {
+          "id": "peach_time",
+          "name": "吃桃瞬间",
+          "damage": 0,
+          "cooldown": 15
+        },
+        {
+          "id": "mini_me",
+          "name": "猴毛分身",
+          "damage": 0,
+          "cooldown": 20
+        }
+      ],
+      "animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death",
+        "roll",
+        "win"
+      ]
+    },
+    {
+      "id": "tudigong",
+      "name": "土地公公",
+      "type": "npc",
+      "appearance": "Chibi old deity, very short, long white flowing beard reaching the ground, wearing a green leaf robe, holding a wooden staff with a glowing peach attached. Kind face, squinting eyes.",
+      "stats": {
+        "hp": 999,
+        "attack": 0,
+        "defense": 999,
+        "speed": 5
+      },
+      "skills": [],
+      "animations": [
+        "idle",
+        "talk"
+      ]
+    },
+    {
+      "id": "change",
+      "name": "嫦娥姐姐",
+      "type": "npc",
+      "appearance": "Beautiful Q-version goddess, floating in the air, wearing elegant white and purple flowing hanfu, long black hair with jade ornaments, holding a chubby white rabbit. Soft glowing aura.",
+      "stats": {
+        "hp": 500,
+        "attack": 0,
+        "defense": 50,
+        "speed": 10
+      },
+      "skills": [],
+      "animations": [
+        "idle",
+        "float",
+        "interact"
+      ]
+    },
+    {
+      "id": "zhubajie",
+      "name": "猪八戒 (休假中)",
+      "type": "npc",
+      "appearance": "Cute chubby pig man, wearing a loose black monk robe, lying on a large watermelon, holding a wooden rake as a back-scratcher. Relaxed and sleepy expression.",
+      "stats": {
+        "hp": 800,
+        "attack": 30,
+        "defense": 100,
+        "speed": 5
+      },
+      "skills": [],
+      "animations": [
+        "idle",
+        "sleep",
+        "eat"
+      ]
+    },
+    {
+      "id": "xiaozuanfeng",
+      "name": "巡山小钻风",
+      "type": "enemy",
+      "appearance": "Tiny demon scout, wearing an oversized helmet covering eyes, carrying a red flag on his back, holding a small gong. Clumsy movements.",
+      "stats": {
+        "hp": 50,
+        "attack": 10,
+        "defense": 5,
+        "speed": 15
+      },
+      "skills": [
+        {
+          "id": "gong_alarm",
+          "name": "冲锋报警",
+          "damage": 15,
+          "cooldown": 5
+        }
+      ],
+      "animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "stun"
+      ]
+    },
+    {
+      "id": "benboerba",
+      "name": "奔波儿灞",
+      "type": "enemy",
+      "appearance": "Chibi fish-man, big bulging eyes, blue scales, wearing simple seaweed armor, holding a bubble wand (trident).",
+      "stats": {
+        "hp": 80,
+        "attack": 12,
+        "defense": 10,
+        "speed": 10
+      },
+      "skills": [
+        {
+          "id": "bubble_attack",
+          "name": "水泡攻击",
+          "damage": 8,
+          "cooldown": 4
+        }
+      ],
+      "animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ]
+    },
+    {
+      "id": "zhizhujing",
+      "name": "蜘蛛精妹妹",
+      "type": "enemy",
+      "appearance": "Cute spider girl, 4 extra fuzzy spider legs on her back, purple gothic lolita style dress, large purple eyes, mischievous grin.",
+      "stats": {
+        "hp": 120,
+        "attack": 18,
+        "defense": 15,
+        "speed": 20
+      },
+      "skills": [
+        {
+          "id": "web_pull",
+          "name": "蛛丝牵引",
+          "damage": 12,
+          "cooldown": 6
+        }
+      ],
+      "animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "climb"
+      ]
+    }
+  ]
+}

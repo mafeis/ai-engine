@@ -1,0 +1,146 @@
+{
+  "bgm": [
+    {
+      "id": "bgm_huaguoshan",
+      "name": "花果山 - 桃源仙境",
+      "description": "轻快活泼的国风民乐。以清脆的笛子为主旋律，模拟鸟鸣与山间清风。伴奏使用轻巧的琵琶拨奏和木鱼点缀。AI Prompt: Upbeat traditional Chinese folk music, playful Dizi (bamboo flute) melody, light Pipa plucking, wooden fish percussion, sunny and peaceful atmosphere of a mystical mountain, 4/4 time, 110 BPM.",
+      "duration": 120,
+      "tempo": "medium",
+      "mood": "无忧无虑，充满好奇心"
+    },
+    {
+      "id": "bgm_shuiliandong",
+      "name": "水帘洞 - 秘境幽居",
+      "description": "空灵、带有水滴感的氛围音。使用古筝的流水式刮奏，配合深沉的洞箫，背景有隐约的溶洞回声。AI Prompt: Ethereal ambient Chinese music, Guzheng glissando simulating flowing water, deep Dongxiao (vertical flute), reverb-heavy cave acoustics, mystical and serene, meditative.",
+      "duration": 180,
+      "tempo": "slow",
+      "mood": "神秘、清凉、神圣"
+    },
+    {
+      "id": "bgm_tianting",
+      "name": "天庭 - 云端漫步",
+      "description": "宏大且带有仙气的管弦乐。加入编钟和云锣的金属质感，丝竹乐器编织出华丽的织体。AI Prompt: Grand orchestral Chinese court music, Bianzhong (bronze bells) and Yunluo, majestic silk and bamboo ensemble, heavenly and ethereal, slightly pompous but bright.",
+      "duration": 150,
+      "tempo": "medium",
+      "mood": "庄严但略显滑稽的拘束感"
+    },
+    {
+      "id": "bgm_battle_mob",
+      "name": "小怪乱斗 - 马喽撒野",
+      "description": "极快节奏的打击乐。以中国大鼓和铙钹为主，间歇穿插急促的唢呐，表现出混乱又有趣的战斗场面。AI Prompt: Fast-paced Chinese percussion ensemble, energetic Taiko and cymbals, frantic Suona riffs, chaotic and funny battle theme, high energy, 150 BPM.",
+      "duration": 90,
+      "tempo": "fast",
+      "mood": "紧张、顽皮、充满动感"
+    },
+    {
+      "id": "bgm_battle_boss",
+      "name": "BOSS 战 - 齐天威压",
+      "description": "融合现代元素的国风摇滚。重金属电吉他与古筝速奏结合，鼓点厚重，史诗感十足。AI Prompt: Epic Chinese Rock Fusion, aggressive Guzheng shredding meets heavy electric guitar riffs, thunderous war drums, heroic and intense, high stakes boss fight.",
+      "duration": 120,
+      "tempo": "fast",
+      "mood": "热血、挑战、震撼"
+    },
+    {
+      "id": "bgm_event_upgrade",
+      "name": "获得宝物/升级",
+      "description": "简短的上升音阶。由云锣和笛子奏响，最后以清脆的铃声收尾。AI Prompt: Short triumphant Chinese jingle, ascending pentatonic scale, bright Yunluo bells and flute, celebratory and rewarding, 5 seconds.",
+      "duration": 5,
+      "tempo": "fast",
+      "mood": "胜利、奖励感"
+    },
+    {
+      "id": "bgm_event_fail",
+      "name": "马喽闯祸/失败",
+      "description": "滑稽的滑音笛子或低音唢呐，表现出垂头丧气的感觉。AI Prompt: Comical failure sound, sliding pitch on a Suona, 'wah-wah-wah' trombone style but with Chinese instruments, goofy and lighthearted.",
+      "duration": 4,
+      "tempo": "slow",
+      "mood": "幽默的失败，不显沮丧"
+    }
+  ],
+  "sfx": [
+    {
+      "id": "sfx_char_footstep",
+      "name": "脚步声",
+      "description": "草地/石地上的轻快爪子扑击声。Light patter of monkey paws on grass/stone, quick and agile, slight jingle of a small bell.",
+      "duration": 0.4,
+      "category": "character"
+    },
+    {
+      "id": "sfx_char_attack",
+      "name": "攻击 (金箍棒/木棍)",
+      "description": "棍棒划破空气的呼啸声，接着是沉闷的打击声。Whoosh of a staff swinging through air, followed by a solid wooden 'thwack' impact.",
+      "duration": 0.8,
+      "category": "character"
+    },
+    {
+      "id": "sfx_char_hurt",
+      "name": "受伤",
+      "description": "高频的猴子唧唧声，听起来很萌。High-pitched 'Ouch!' monkey chirp, cute and funny rather than painful.",
+      "duration": 0.6,
+      "category": "character"
+    },
+    {
+      "id": "sfx_char_jump",
+      "name": "二段跳/翻跟头",
+      "description": "带有旋风效果的“砰”声，类似筋斗云的小型爆发。Magical 'poof' sound with a swirling wind effect, like a small cloud exploding.",
+      "duration": 1.2,
+      "category": "character"
+    },
+    {
+      "id": "sfx_env_wind",
+      "name": "风声/仙气",
+      "description": "山间微风夹杂着细微的水晶闪烁感。Whistling mountain breeze mixed with subtle crystalline sparkles.",
+      "duration": 3.0,
+      "category": "environment"
+    },
+    {
+      "id": "sfx_env_peach_pick",
+      "name": "仙桃采摘",
+      "description": "清脆的弹出声加上多汁的叶片摩擦声。A satisfying 'pop' followed by a juicy rustle of leaves.",
+      "duration": 0.7,
+      "category": "environment"
+    },
+    {
+      "id": "sfx_env_waterfall",
+      "name": "流水/瀑布",
+      "description": "巨大的瀑布奔流声，带有节奏感的溅水声。Rushing water of a grand waterfall, white noise with a rhythmic splashing base.",
+      "duration": 5.0,
+      "category": "environment"
+    },
+    {
+      "id": "sfx_ui_confirm",
+      "name": "点击确认",
+      "description": "两根竹板敲击的清脆声。Crisp sound of two bamboo sticks hitting each other.",
+      "duration": 0.3,
+      "category": "ui"
+    },
+    {
+      "id": "sfx_ui_menu_open",
+      "name": "打开菜单",
+      "description": "纸质卷轴缓缓展开的沙沙声。Soft unfolding of a paper scroll.",
+      "duration": 1.0,
+      "category": "ui"
+    },
+    {
+      "id": "sfx_ui_cancel",
+      "name": "取消/返回",
+      "description": "低沉的木鱼敲击声。A low-pitched wooden 'clop', like a hollow wood block.",
+      "duration": 0.5,
+      "category": "ui"
+    },
+    {
+      "id": "sfx_item_eat_peach",
+      "name": "吃桃子",
+      "description": "嘎嘣脆的多汁咬合声，随后是满足的“啊”声。Crunchy, juicy biting sound, followed by a satisfied 'Ah'.",
+      "duration": 1.5,
+      "category": "item"
+    },
+    {
+      "id": "sfx_item_equip",
+      "name": "穿戴装备",
+      "description": "金色甲片碰撞的金属摩擦声。Metallic clink of golden armor pieces fitting together.",
+      "duration": 1.2,
+      "category": "item"
+    }
+  ]
+}

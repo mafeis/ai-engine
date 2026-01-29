@@ -25,8 +25,8 @@ import {
     clearItemTempDirectory,
     clearTempDirectory
 } from './js/resources.js';
-import { showPreviewPanel, startInteractivePreview, stopInteractivePreview } from './js/game.js';
-import { backToProject, backToProjectList, backFromResource, showPanel } from './js/ui.js';
+import { initPreviewTab, startInteractivePreview, stopInteractivePreview } from './js/game.js';
+import { backToProject, backToProjectList, backFromResource, showPanel, showPreviewPanel } from './js/ui.js';
 
 // ============ 全局初始化 ============
 
@@ -47,6 +47,15 @@ async function init() {
 
     // 绑定基础事件
     setupEventListeners();
+
+    // 绑定全局导航
+    const bindNav = (id, handler) => {
+        const el = document.getElementById(id);
+        if (el) el.onclick = handler;
+    };
+    bindNav('back-to-project', backToProject);
+    bindNav('back-from-resource', backFromResource);
+    bindNav('back-from-spec', backToProject); // 复用 backToProject 即可，或者用专门的 backFromSpec
 }
 
 /**
@@ -141,6 +150,7 @@ window.viewSpec = viewSpec;
 window.extractSpecFromDoc = extractSpecFromDoc;
 
 window.showResourcePanel = showResourcePanel;
+window.showPreviewPanel = showPreviewPanel;
 window.generateItemVariants = generateItemVariants;
 window.viewItemVariants = viewItemVariants;
 window.selectVariant = selectVariant;
@@ -148,8 +158,8 @@ window.generateCharacterAnimations = generateCharacterAnimations;
 window.clearItemTempDirectory = clearItemTempDirectory;
 window.clearTempDirectory = clearTempDirectory;
 
-window.showPreviewPanel = showPreviewPanel;
-window.startGame = startInteractivePreview; // 保持 HTML 里的名字
+window.initPreviewTab = initPreviewTab; // 新增
+window.startGame = startInteractivePreview;
 window.stopGame = stopInteractivePreview;
 
 // 执行初始化

@@ -1,0 +1,240 @@
+{
+  "game_info": {
+    "title": "西游世界",
+    "version": "1.0",
+    "positioning": "轻快、探索、高互动性",
+    "player_role": "马喽（小猴子）",
+    "setting": "西游大背景下的花果山及周边区域"
+  },
+  "quest_system": {
+    "main_quests": [
+      {
+        "id": "MQ01",
+        "name": "初出茅庐一马喽",
+        "objective": "在水帘洞外的桃树林采集 5 个甜桃并分享给同伴。",
+        "trigger_condition": "初始进入游戏",
+        "rewards": [
+          {
+            "type": "title",
+            "value": "花果山新面孔"
+          },
+          {
+            "type": "exp",
+            "value": 100
+          }
+        ]
+      },
+      {
+        "id": "MQ02",
+        "name": "纵身一跃见乾坤",
+        "objective": "尝试跳过水帘洞瀑布（学习跳跃与二段跳机制）。",
+        "trigger_condition": "完成 MQ01，前往瀑布边",
+        "rewards": [
+          {
+            "type": "skill",
+            "value": "轻盈跳跃"
+          },
+          {
+            "type": "reputation",
+            "target": "花果山",
+            "value": 50
+          }
+        ]
+      },
+      {
+        "id": "MQ03",
+        "name": "寻兵器库寻宝",
+        "objective": "前往傲来国边缘，潜入人类铁匠铺找寻趁手的木棍。",
+        "trigger_condition": "完成 MQ02，等级达到 5 级",
+        "rewards": [
+          {
+            "type": "weapon",
+            "value": "结实的桑木棍"
+          },
+          {
+            "type": "system_unlock",
+            "value": "装备系统"
+          }
+        ]
+      },
+      {
+        "id": "MQ04",
+        "name": "大圣的嘱托",
+        "objective": "听孙大圣讲述当年的故事，并帮他清理山顶的杂碎妖怪。",
+        "trigger_condition": "完成 MQ03，前往花果山顶",
+        "rewards": [
+          {
+            "type": "consumable",
+            "value": "仙丹残渣"
+          },
+          {
+            "type": "skill",
+            "value": "猴毛分身(初级)"
+          }
+        ]
+      },
+      {
+        "id": "MQ05",
+        "name": "定海神针余波",
+        "objective": "潜入东海边缘，寻找被定海神针压住的“快乐海星”。",
+        "trigger_condition": "完成 MQ04",
+        "rewards": [
+          {
+            "type": "accessory",
+            "value": "避水珠碎片"
+          },
+          {
+            "type": "area_unlock",
+            "value": "潜水区域"
+          }
+        ]
+      }
+    ],
+    "side_quests": [
+      {
+        "id": "SQ01",
+        "name": "醉酒的老猴",
+        "description": "老猴子想念御酒的味道，玩家需要去天兵营地偷一壶“剩酒”。",
+        "mechanics": "潜行关卡，利用变身术变成石头躲避巡逻。",
+        "rewards": []
+      },
+      {
+        "id": "SQ02",
+        "name": "仙鹤的难题",
+        "description": "一只仙鹤的羽毛被风吹散了，玩家需利用跳跃技巧在悬崖间收集。",
+        "rewards": [
+          {
+            "type": "mount",
+            "value": "温顺的仙鹤",
+            "duration": "limited_time"
+          }
+        ]
+      },
+      {
+        "id": "SQ03",
+        "name": "土地公的胡须",
+        "description": "土地公的胡须被调皮的妖怪拔走了，玩家需要找回。",
+        "mechanics": "追踪解谜",
+        "rewards": []
+      }
+    ],
+    "daily_activities": [
+      {
+        "name": "每日梳毛",
+        "description": "与 3 只不同的猴子进行社交互动（梳毛计时小游戏）。",
+        "rewards": [
+          {
+            "type": "social_points",
+            "value": "variable"
+          },
+          {
+            "type": "stat_recovery",
+            "target": "mood",
+            "value": "high"
+          }
+        ]
+      },
+      {
+        "name": "巡山打卡",
+        "description": "前往花果山的三个随机风景点进行“到此一游”涂鸦。",
+        "rewards": [
+          {
+            "type": "item",
+            "value": "随机水果"
+          },
+          {
+            "type": "exp",
+            "value": "small_amount"
+          }
+        ]
+      },
+      {
+        "name": "水果大乱斗",
+        "description": "参与限时开启的水果采集竞赛。",
+        "rewards": [
+          {
+            "type": "currency",
+            "value": "节日代币",
+            "usage": "兑换皮肤"
+          }
+        ]
+      }
+    ]
+  },
+  "achievement_system": [
+    {
+      "name": "水果王",
+      "condition": "累计食用 1000 个不同种类的水果。",
+      "reward": {
+        "type": "skin",
+        "value": "金灿灿的猴皮"
+      }
+    },
+    {
+      "name": "瀑布跳跃者",
+      "condition": "连续 50 次成功跳过水帘洞且未落水。",
+      "reward": {
+        "type": "title",
+        "value": "水帘洞飞人"
+      }
+    },
+    {
+      "name": "和平马喽",
+      "condition": "连续 3 个游戏日不击杀任何敌对生物。",
+      "reward": {
+        "type": "skill_effect",
+        "value": "步步生莲"
+      }
+    },
+    {
+      "name": "大圣的小跟班",
+      "condition": "与孙悟空 NPC 对话超过 100 句。",
+      "reward": {
+        "type": "emote",
+        "value": "大圣同款耍棍"
+      }
+    },
+    {
+      "name": "傲来国拆迁办",
+      "condition": "破坏傲来国街道上的 100 个木桶/罐子。",
+      "reward": {
+        "type": "title",
+        "value": "拆家小能手"
+      }
+    }
+  ],
+  "dialogue_script": {
+    "quest_id": "MQ04",
+    "participants": [
+      "孙悟空",
+      "玩家(马喽)"
+    ],
+    "content": [
+      {
+        "speaker": "孙悟空",
+        "action": "坐在山顶巨石上，望着远方，咬了一口桃子",
+        "text": "嘿！哪来的小马喽？看你这身法，倒有几分俺老孙当年的影子。"
+      },
+      {
+        "speaker": "玩家",
+        "action": "抓耳挠腮",
+        "text": "大圣！我听老猴子说，您当年闯龙宫、闹天宫，那是真的吗？"
+      },
+      {
+        "speaker": "孙悟空",
+        "action": "大笑",
+        "text": "真，真得不能再真！不过，那都是些打打杀杀的苦差事。现在的花果山，清静。"
+      },
+      {
+        "speaker": "玩家",
+        "text": "可山下那些小妖总来捣乱，大家都没法安心吃桃了。"
+      },
+      {
+        "speaker": "孙悟空",
+        "action": "眼神一凛，随即又放松下来",
+        "text": "也是。俺老孙现在不便出手，这根猴毛你拿着。去，把那些吵闹的家伙赶走。记住，做马喽嘛，最重要的就是开心！"
+      }
+    ],
+    "objective_update": "驱逐山腰处的混世小妖（0/10）"
+  }
+}

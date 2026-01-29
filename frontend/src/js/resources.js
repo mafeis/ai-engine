@@ -222,25 +222,65 @@ export function renderVariantsHtml(result, projectId, specType, itemId) {
         `;
 
         if (specType === 'character') {
-            html += `<button class="btn btn-warning btn-sm anim-trigger">🎬 ${animation?.exists ? '重新生成动画' : '生成动画序列'}</button>`;
+            html += `
+                <button class="btn btn-warning btn-sm anim-trigger">🎬 ${animation?.exists ? '重新生成动画' : '生成动画序列'}</button>
+                <button class="btn btn-outline-primary btn-sm upload-trigger">📤 上传并替换</button>
+                <input type="file" class="anim-upload-input" style="display:none" accept="image/png">
+            `;
         }
 
         html += `</div></div>`;
 
         if (specType === 'character' && animation?.exists) {
-            const sheetUrl = 'http://localhost:8000' + animation.spritesheet_url;
+            const types = [
+                { id: 'idle', n: '待机', r: 0 },
+                { id: 'walk', n: '行走', r: 1 },
+                { id: 'attack', n: '攻击', r: 2 }
+            ];
+
             html += `
-                <div class="animation-preview-panel">
-                    <h4>🏃 动画预览</h4>
+                <div class="animation-preview-panel mt-3">
+                    <h4 class="mb-3">🏃 动画组件管理</h4>
+                    <p class="muted small mb-3">你可以分别为每个动作上传独立的 4 帧（1x4）序列帧图片，或使用 AI 生成的完整图。</p>
                     <div class="animation-grid">
-                        ${[{ n: '待机', r: 0 }, { n: '行走', r: 1 }, { n: '攻击', r: 2 }].map(a => `
-                            <div class="anim-preview-item">
-                                <div class="anim-sprite-box" style="width:64px; height:64px; overflow:hidden; border:1px solid var(--border); background:rgba(255,255,255,0.05); border-radius:4px; margin:0 auto 8px;">
-                                    <div class="anim-sprite" style="width:256px; height:64px; background-image: url('${sheetUrl}'); background-position: 0 -${a.r * 64}px; animation: playSprite 0.8s steps(4) infinite;"></div>
+                        ${types.map(a => {
+                const customData = animation.types?.[a.id];
+                const isCustom = !!customData;
+                const frames = isCustom ? customData.frames : 4;
+                const frameSize = isCustom ? (customData.frameSize || 64) : 64;
+                const sheetUrl = isCustom ? ('http://localhost:8000' + customData.url) : ('http://localhost:8000' + animation.spritesheet_url);
+
+                // 动态调整动画样式
+                const spriteWidth = frames * frameSize;
+                const scale = 64 / frameSize;
+                const animationStyle = frames > 1
+                    ? `playSprite 0.8s steps(${frames}) infinite`
+                    : 'none';
+
+                return `
+                                <div class="anim-preview-item">
+                                    <div class="anim-sprite-box" style="width:64px; height:64px; overflow:hidden; border:2px solid ${isCustom ? 'var(--primary)' : 'var(--border)'}; background:rgba(255,255,255,0.05); border-radius:4px; margin:0 auto 8px; position:relative;">
+                                        <div class="anim-sprite" style="
+                                            width:${spriteWidth}px; 
+                                            height:${frameSize}px; 
+                                            background-image: url('${sheetUrl}'); 
+                                            background-position: 0 -${isCustom ? 0 : (a.r * frameSize)}px; 
+                                            animation: ${animationStyle};
+                                            transform: scale(${scale});
+                                            transform-origin: 0 0;
+                                        "></div>
+                                        ${isCustom ? `<span style="position:absolute; top:0; right:0; font-size:10px; background:var(--primary); color:white; padding:1px 3px;">${frames}帧|${frameSize}px</span>` : ''}
+                                    </div>
+                                    <div class="anim-name-small">${a.n}</div>
+                                    <div class="mt-2 text-center">
+                                        <button class="btn btn-outline-primary btn-xs upload-type-trigger" data-type="${a.id}" title="上传 ${a.n} 序列帧 (支持任意分辨率)">
+                                            上传
+                                        </button>
+                                        <input type="file" class="anim-type-upload-input" data-type="${a.id}" style="display:none" accept="image/png">
+                                    </div>
                                 </div>
-                                <div class="anim-name-small">${a.n}</div>
-                            </div>
-                        `).join('')}
+                            `;
+            }).join('')}
                     </div>
                 </div>
             `;
@@ -255,6 +295,29 @@ export function renderVariantsHtml(result, projectId, specType, itemId) {
 
                 const animBtn = container.querySelector('.anim-trigger');
                 if (animBtn) animBtn.onclick = () => generateCharacterAnimations(projectId, itemId);
+
+                const uploadBtn = container.querySelector('.upload-trigger');
+                const uploadInput = container.querySelector('.anim-upload-input');
+                if (uploadBtn && uploadInput) {
+                    uploadBtn.onclick = () => uploadInput.click();
+                    uploadInput.onchange = (e) => {
+                        const file = e.target.files[0];
+                        if (file) uploadCharacterAnimations(projectId, itemId, file, 'full');
+                    };
+                }
+
+                // 绑定独立动作上传
+                container.querySelectorAll('.upload-type-trigger').forEach(subBtn => {
+                    const atype = subBtn.dataset.type;
+                    const subInput = container.querySelector(`.anim-type-upload-input[data-type="${atype}"]`);
+                    if (subInput) {
+                        subBtn.onclick = () => subInput.click();
+                        subInput.onchange = (e) => {
+                            const file = e.target.files[0];
+                            if (file) uploadCharacterAnimations(projectId, itemId, file, atype);
+                        };
+                    }
+                });
             }
         }, 0);
 
@@ -337,6 +400,22 @@ export async function generateCharacterAnimations(projectId, itemId) {
             btn.textContent = originalText;
             btn.disabled = false;
         }
+    }
+}
+
+/**
+ * 上传角色序列帧动画
+ */
+export async function uploadCharacterAnimations(projectId, itemId, file, animType = 'full') {
+    try {
+        const result = await api.uploadAnimations(projectId, itemId, file, animType);
+        if (result.success) {
+            alert(`✓ ${animType === 'full' ? '完整' : animType} 序列帧动画上传成功！`);
+            await viewItemVariants(projectId, 'character', itemId);
+        }
+    } catch (error) {
+        console.error('动画上传失败:', error);
+        alert('动画上传失败: ' + error.message);
     }
 }
 
